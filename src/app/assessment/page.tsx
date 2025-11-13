@@ -13,10 +13,18 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Scale, FileText, Handshake } from "lucide-react";
 
+interface TaskSelection {
+  administrative: string[];
+  legal: string[];
+  peopleFacing: string[];
+  marketing: string[];
+}
+
 interface AssessmentData {
   firmName: string;
   role: string;
   practiceArea: string;
+  taskSelection: TaskSelection;
   supportNeeded: string[];
   weeklyHours: string;
   software: string[];
@@ -32,6 +40,12 @@ export default function AssessmentPage() {
     firmName: "",
     role: "",
     practiceArea: "",
+    taskSelection: {
+      administrative: [],
+      legal: [],
+      peopleFacing: [],
+      marketing: [],
+    },
     supportNeeded: [],
     weeklyHours: "",
     software: [],
@@ -40,7 +54,7 @@ export default function AssessmentPage() {
     personality: "",
   });
 
-  const totalSteps = 5;
+  const totalSteps = 6;
 
   const handleNext = () => {
     if (currentStep < totalSteps) {
@@ -67,6 +81,20 @@ export default function AssessmentPage() {
     setFormData({ ...formData, [field]: updated });
   };
 
+  const handleTaskSelection = (category: keyof TaskSelection, value: string) => {
+    const current = formData.taskSelection[category];
+    const updated = current.includes(value)
+      ? current.filter((item) => item !== value)
+      : [...current, value];
+    setFormData({
+      ...formData,
+      taskSelection: {
+        ...formData.taskSelection,
+        [category]: updated,
+      },
+    });
+  };
+
   return (
     <div className="min-h-screen bg-[hsl(var(--background))]">
       <Header />
@@ -91,17 +119,19 @@ export default function AssessmentPage() {
             <CardHeader>
               <CardTitle className="text-xl">
                 {currentStep === 1 && "Section 1: Understanding Your Firm"}
-                {currentStep === 2 && "Section 2: Support Requirements"}
-                {currentStep === 3 && "Section 3: Software & Tools"}
-                {currentStep === 4 && "Section 4: Schedule & Availability"}
-                {currentStep === 5 && "Section 5: Cultural Fit"}
+                {currentStep === 2 && "Section 2: Key Task Areas"}
+                {currentStep === 3 && "Section 3: Support Requirements"}
+                {currentStep === 4 && "Section 4: Software & Tools"}
+                {currentStep === 5 && "Section 5: Schedule & Availability"}
+                {currentStep === 6 && "Section 6: Cultural Fit"}
               </CardTitle>
               <CardDescription>
                 {currentStep === 1 && "Tell us about your firm and role"}
-                {currentStep === 2 && "Define the type of support you need most"}
-                {currentStep === 3 && "Indicate the tools your team uses"}
-                {currentStep === 4 && "Set availability expectations"}
-                {currentStep === 5 && "Choose personality traits you value"}
+                {currentStep === 2 && "Select the most important tasks for your practice"}
+                {currentStep === 3 && "Define the type of support you need most"}
+                {currentStep === 4 && "Indicate the tools your team uses"}
+                {currentStep === 5 && "Set availability expectations"}
+                {currentStep === 6 && "Choose personality traits you value"}
               </CardDescription>
             </CardHeader>
 
@@ -172,8 +202,366 @@ export default function AssessmentPage() {
                 </div>
               )}
 
-              {/* Step 2: Support Requirements */}
+              {/* Step 2: Key Task Areas */}
               {currentStep === 2 && (
+                <div className="space-y-6">
+                  <div>
+                    <Label className="text-base">Select up to 5 tasks per category that are most important for your practice</Label>
+                    <p className="text-sm text-[hsl(var(--muted-foreground))] mt-1">
+                      Choose the tasks that best represent the work your legal support will handle
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {/* Administrative Column */}
+                    <div className="space-y-3">
+                      <h3 className="font-semibold text-[hsl(var(--primary))] border-b pb-2">
+                        ADMINISTRATIVE
+                      </h3>
+                      <div className="space-y-2">
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="admin-crm"
+                            checked={formData.taskSelection.administrative.includes("Use CRM & CMS")}
+                            onCheckedChange={() => handleTaskSelection("administrative", "Use CRM & CMS")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="admin-crm" className="font-normal text-sm cursor-pointer">
+                              Use CRM & CMS
+                            </Label>
+                            <p className="text-xs text-[hsl(var(--muted-foreground))]">330/year</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="admin-organize"
+                            checked={formData.taskSelection.administrative.includes("Organize & File Documents")}
+                            onCheckedChange={() => handleTaskSelection("administrative", "Organize & File Documents")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="admin-organize" className="font-normal text-sm cursor-pointer">
+                              Organize & File Documents
+                            </Label>
+                            <p className="text-xs text-[hsl(var(--muted-foreground))]">308/year</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="admin-emails"
+                            checked={formData.taskSelection.administrative.includes("Manage Emails")}
+                            onCheckedChange={() => handleTaskSelection("administrative", "Manage Emails")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="admin-emails" className="font-normal text-sm cursor-pointer">
+                              Manage Emails
+                            </Label>
+                            <p className="text-xs text-[hsl(var(--muted-foreground))]">298/year</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="admin-projects"
+                            checked={formData.taskSelection.administrative.includes("Manage Simple Projects")}
+                            onCheckedChange={() => handleTaskSelection("administrative", "Manage Simple Projects")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="admin-projects" className="font-normal text-sm cursor-pointer">
+                              Manage Simple Projects
+                            </Label>
+                            <p className="text-xs text-[hsl(var(--muted-foreground))]">256/year</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="admin-track"
+                            checked={formData.taskSelection.administrative.includes("Track & Update Cases")}
+                            onCheckedChange={() => handleTaskSelection("administrative", "Track & Update Cases")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="admin-track" className="font-normal text-sm cursor-pointer">
+                              Track & Update Cases
+                            </Label>
+                            <p className="text-xs text-[hsl(var(--muted-foreground))]">243/year</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="admin-other"
+                            checked={formData.taskSelection.administrative.includes("Other")}
+                            onCheckedChange={() => handleTaskSelection("administrative", "Other")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="admin-other" className="font-normal text-sm cursor-pointer">
+                              Other
+                            </Label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Legal Column */}
+                    <div className="space-y-3">
+                      <h3 className="font-semibold text-[hsl(var(--primary))] border-b pb-2">
+                        LEGAL
+                      </h3>
+                      <div className="space-y-2">
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="legal-draft"
+                            checked={formData.taskSelection.legal.includes("Draft Legal Documents")}
+                            onCheckedChange={() => handleTaskSelection("legal", "Draft Legal Documents")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="legal-draft" className="font-normal text-sm cursor-pointer">
+                              Draft Legal Documents
+                            </Label>
+                            <p className="text-xs text-[hsl(var(--muted-foreground))]">197/year</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="legal-file"
+                            checked={formData.taskSelection.legal.includes("File/E-File Court Cases")}
+                            onCheckedChange={() => handleTaskSelection("legal", "File/E-File Court Cases")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="legal-file" className="font-normal text-sm cursor-pointer">
+                              File/E-File Court Cases
+                            </Label>
+                            <p className="text-xs text-[hsl(var(--muted-foreground))]">127/year</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="legal-cover"
+                            checked={formData.taskSelection.legal.includes("Draft Cover Letters")}
+                            onCheckedChange={() => handleTaskSelection("legal", "Draft Cover Letters")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="legal-cover" className="font-normal text-sm cursor-pointer">
+                              Draft Cover Letters
+                            </Label>
+                            <p className="text-xs text-[hsl(var(--muted-foreground))]">116/year</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="legal-affidavits"
+                            checked={formData.taskSelection.legal.includes("Draft Affidavits")}
+                            onCheckedChange={() => handleTaskSelection("legal", "Draft Affidavits")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="legal-affidavits" className="font-normal text-sm cursor-pointer">
+                              Draft Affidavits
+                            </Label>
+                            <p className="text-xs text-[hsl(var(--muted-foreground))]">94/year</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="legal-motions"
+                            checked={formData.taskSelection.legal.includes("Draft Motions")}
+                            onCheckedChange={() => handleTaskSelection("legal", "Draft Motions")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="legal-motions" className="font-normal text-sm cursor-pointer">
+                              Draft Motions
+                            </Label>
+                            <p className="text-xs text-[hsl(var(--muted-foreground))]">88/year</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="legal-other"
+                            checked={formData.taskSelection.legal.includes("Other")}
+                            onCheckedChange={() => handleTaskSelection("legal", "Other")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="legal-other" className="font-normal text-sm cursor-pointer">
+                              Other
+                            </Label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* People Facing Column */}
+                    <div className="space-y-3">
+                      <h3 className="font-semibold text-[hsl(var(--primary))] border-b pb-2">
+                        PEOPLE FACING
+                      </h3>
+                      <div className="space-y-2">
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="people-reception"
+                            checked={formData.taskSelection.peopleFacing.includes("Reception: Answer Inquires")}
+                            onCheckedChange={() => handleTaskSelection("peopleFacing", "Reception: Answer Inquires")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="people-reception" className="font-normal text-sm cursor-pointer">
+                              Reception: Answer Inquires
+                            </Label>
+                            <p className="text-xs text-[hsl(var(--muted-foreground))]">318/year</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="people-request"
+                            checked={formData.taskSelection.peopleFacing.includes("Request Documentation")}
+                            onCheckedChange={() => handleTaskSelection("peopleFacing", "Request Documentation")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="people-request" className="font-normal text-sm cursor-pointer">
+                              Request Documentation
+                            </Label>
+                            <p className="text-xs text-[hsl(var(--muted-foreground))]">309/year</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="people-confirm"
+                            checked={formData.taskSelection.peopleFacing.includes("Confirm Appointments With Clients")}
+                            onCheckedChange={() => handleTaskSelection("peopleFacing", "Confirm Appointments With Clients")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="people-confirm" className="font-normal text-sm cursor-pointer">
+                              Confirm Appointments With Clients
+                            </Label>
+                            <p className="text-xs text-[hsl(var(--muted-foreground))]">246/year</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="people-retainer"
+                            checked={formData.taskSelection.peopleFacing.includes("Intake: Qualify & Obtain Retainer")}
+                            onCheckedChange={() => handleTaskSelection("peopleFacing", "Intake: Qualify & Obtain Retainer")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="people-retainer" className="font-normal text-sm cursor-pointer">
+                              Intake: Qualify & Obtain Retainer
+                            </Label>
+                            <p className="text-xs text-[hsl(var(--muted-foreground))]">165/year</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="people-schedule"
+                            checked={formData.taskSelection.peopleFacing.includes("Intake: Qualify & Schedule Leads")}
+                            onCheckedChange={() => handleTaskSelection("peopleFacing", "Intake: Qualify & Schedule Leads")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="people-schedule" className="font-normal text-sm cursor-pointer">
+                              Intake: Qualify & Schedule Leads
+                            </Label>
+                            <p className="text-xs text-[hsl(var(--muted-foreground))]">136/year</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="people-other"
+                            checked={formData.taskSelection.peopleFacing.includes("Other")}
+                            onCheckedChange={() => handleTaskSelection("peopleFacing", "Other")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="people-other" className="font-normal text-sm cursor-pointer">
+                              Other
+                            </Label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Marketing Column */}
+                    <div className="space-y-3">
+                      <h3 className="font-semibold text-[hsl(var(--primary))] border-b pb-2">
+                        MARKETING
+                      </h3>
+                      <div className="space-y-2">
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="marketing-social"
+                            checked={formData.taskSelection.marketing.includes("Manage Social Media")}
+                            onCheckedChange={() => handleTaskSelection("marketing", "Manage Social Media")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="marketing-social" className="font-normal text-sm cursor-pointer">
+                              Manage Social Media
+                            </Label>
+                            <p className="text-xs text-[hsl(var(--muted-foreground))]">71/year</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="marketing-graphic"
+                            checked={formData.taskSelection.marketing.includes("Create Graphic Material")}
+                            onCheckedChange={() => handleTaskSelection("marketing", "Create Graphic Material")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="marketing-graphic" className="font-normal text-sm cursor-pointer">
+                              Create Graphic Material
+                            </Label>
+                            <p className="text-xs text-[hsl(var(--muted-foreground))]">51/year</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="marketing-website"
+                            checked={formData.taskSelection.marketing.includes("Keep Website Up To Date")}
+                            onCheckedChange={() => handleTaskSelection("marketing", "Keep Website Up To Date")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="marketing-website" className="font-normal text-sm cursor-pointer">
+                              Keep Website Up To Date
+                            </Label>
+                            <p className="text-xs text-[hsl(var(--muted-foreground))]">43/year</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="marketing-reply"
+                            checked={formData.taskSelection.marketing.includes("Reply to Messages On Social Media")}
+                            onCheckedChange={() => handleTaskSelection("marketing", "Reply to Messages On Social Media")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="marketing-reply" className="font-normal text-sm cursor-pointer">
+                              Reply to Messages On Social Media
+                            </Label>
+                            <p className="text-xs text-[hsl(var(--muted-foreground))]">43/year</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="marketing-videos"
+                            checked={formData.taskSelection.marketing.includes("Create & Edit Simple Videos")}
+                            onCheckedChange={() => handleTaskSelection("marketing", "Create & Edit Simple Videos")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="marketing-videos" className="font-normal text-sm cursor-pointer">
+                              Create & Edit Simple Videos
+                            </Label>
+                            <p className="text-xs text-[hsl(var(--muted-foreground))]">37/year</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <Checkbox
+                            id="marketing-other"
+                            checked={formData.taskSelection.marketing.includes("Other")}
+                            onCheckedChange={() => handleTaskSelection("marketing", "Other")}
+                          />
+                          <div className="flex-1">
+                            <Label htmlFor="marketing-other" className="font-normal text-sm cursor-pointer">
+                              Other
+                            </Label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 3: Support Requirements */}
+              {currentStep === 3 && (
                 <div className="space-y-4">
                   <Label>Legal Admin Support Needed Most (Select all that apply)</Label>
                   <div className="space-y-3">
@@ -247,8 +635,8 @@ export default function AssessmentPage() {
                 </div>
               )}
 
-              {/* Step 3: Software Requirements */}
-              {currentStep === 3 && (
+              {/* Step 4: Software Requirements */}
+              {currentStep === 4 && (
                 <div className="space-y-4">
                   <Label>Software Proficiency Requirements (Select all that apply)</Label>
 
@@ -346,8 +734,8 @@ export default function AssessmentPage() {
                 </div>
               )}
 
-              {/* Step 4: Schedule & Availability */}
-              {currentStep === 4 && (
+              {/* Step 5: Schedule & Availability */}
+              {currentStep === 5 && (
                 <div className="space-y-4">
                   <div>
                     <Label htmlFor="timeZone">Firm's Time Zone</Label>
@@ -392,8 +780,8 @@ export default function AssessmentPage() {
                 </div>
               )}
 
-              {/* Step 5: Cultural Fit */}
-              {currentStep === 5 && (
+              {/* Step 6: Cultural Fit */}
+              {currentStep === 6 && (
                 <div className="space-y-4">
                   <Label>Personality Traits You Value Most</Label>
                   <RadioGroup value={formData.personality} onValueChange={(value) => setFormData({ ...formData, personality: value })}>
