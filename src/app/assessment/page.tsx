@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Scale, FileText, Handshake } from "lucide-react";
 import { BrandName } from "@/components/brand/brand-name";
 
@@ -358,7 +359,14 @@ export default function AssessmentPage() {
                       </h3>
                       <div className="space-y-3 flex flex-col flex-1">
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.administrative["Use CRM & CMS"] || 0)}`}>
-                          <Label className="text-sm font-normal">Use CRM & CMS</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Label className="text-sm font-normal cursor-help">Use CRM & CMS</Label>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-xs">
+                              <p>Manage customer relationships and content through specialized software systems to track client interactions and organize firm information.</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">330/year</p>
                           <Select
                             value={String(formData.taskSelection.administrative["Use CRM & CMS"] || 0)}
@@ -376,7 +384,14 @@ export default function AssessmentPage() {
                           </Select>
                         </div>
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.administrative["Organize & File Documents"] || 0)}`}>
-                          <Label className="text-sm font-normal">Organize & File Documents</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Label className="text-sm font-normal cursor-help">Organize & File Documents</Label>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-xs">
+                              <p>Systematically organize, categorize, and store legal documents in digital or physical filing systems for easy retrieval and compliance.</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">308/year</p>
                           <Select
                             value={String(formData.taskSelection.administrative["Organize & File Documents"] || 0)}
@@ -394,7 +409,14 @@ export default function AssessmentPage() {
                           </Select>
                         </div>
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.administrative["Manage Emails"] || 0)}`}>
-                          <Label className="text-sm font-normal">Manage Emails</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Label className="text-sm font-normal cursor-help">Manage Emails</Label>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-xs">
+                              <p>Handle incoming and outgoing email correspondence, prioritize messages, respond to routine inquiries, and maintain organized inbox.</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">298/year</p>
                           <Select
                             value={String(formData.taskSelection.administrative["Manage Emails"] || 0)}
@@ -412,7 +434,14 @@ export default function AssessmentPage() {
                           </Select>
                         </div>
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.administrative["Manage Simple Projects"] || 0)}`}>
-                          <Label className="text-sm font-normal">Manage Simple Projects</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Label className="text-sm font-normal cursor-help">Manage Simple Projects</Label>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-xs">
+                              <p>Coordinate and track straightforward projects, manage timelines, communicate updates, and ensure completion of routine tasks.</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">256/year</p>
                           <Select
                             value={String(formData.taskSelection.administrative["Manage Simple Projects"] || 0)}
@@ -430,7 +459,14 @@ export default function AssessmentPage() {
                           </Select>
                         </div>
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.administrative["Track & Update Cases"] || 0)}`}>
-                          <Label className="text-sm font-normal">Track & Update Cases</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Label className="text-sm font-normal cursor-help">Track & Update Cases</Label>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-xs">
+                              <p>Monitor case progress, update case management systems with current information, track deadlines, and maintain accurate case status records.</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">243/year</p>
                           <Select
                             value={String(formData.taskSelection.administrative["Track & Update Cases"] || 0)}
@@ -479,7 +515,14 @@ export default function AssessmentPage() {
                       </h3>
                       <div className="space-y-3 flex flex-col flex-1">
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["Draft Legal Documents"] || 0)}`}>
-                          <Label className="text-sm font-normal">Draft Legal Documents</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Label className="text-sm font-normal cursor-help">Draft Legal Documents</Label>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-xs">
+                              <p>Prepare formal legal documents such as contracts, agreements, and pleadings based on templates or attorney guidance.</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">197/year</p>
                           <Select
                             value={String(formData.taskSelection.legal["Draft Legal Documents"] || 0)}
@@ -497,7 +540,14 @@ export default function AssessmentPage() {
                           </Select>
                         </div>
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["File/E-File Court Cases"] || 0)}`}>
-                          <Label className="text-sm font-normal">File/E-File Court Cases</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Label className="text-sm font-normal cursor-help">File/E-File Court Cases</Label>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-xs">
+                              <p>Submit legal documents to courts through electronic filing systems or physical filing, ensuring compliance with court rules and deadlines.</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">127/year</p>
                           <Select
                             value={String(formData.taskSelection.legal["File/E-File Court Cases"] || 0)}
@@ -515,7 +565,14 @@ export default function AssessmentPage() {
                           </Select>
                         </div>
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["Draft Cover Letters"] || 0)}`}>
-                          <Label className="text-sm font-normal">Draft Cover Letters</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Label className="text-sm font-normal cursor-help">Draft Cover Letters</Label>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-xs">
+                              <p>Create professional cover letters to accompany legal document submissions, correspondence, and filings.</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">116/year</p>
                           <Select
                             value={String(formData.taskSelection.legal["Draft Cover Letters"] || 0)}
@@ -533,7 +590,14 @@ export default function AssessmentPage() {
                           </Select>
                         </div>
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["Draft Affidavits"] || 0)}`}>
-                          <Label className="text-sm font-normal">Draft Affidavits</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Label className="text-sm font-normal cursor-help">Draft Affidavits</Label>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-xs">
+                              <p>Prepare sworn written statements of fact for use in legal proceedings, formatted according to legal requirements.</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">94/year</p>
                           <Select
                             value={String(formData.taskSelection.legal["Draft Affidavits"] || 0)}
@@ -551,7 +615,14 @@ export default function AssessmentPage() {
                           </Select>
                         </div>
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["Draft Motions"] || 0)}`}>
-                          <Label className="text-sm font-normal">Draft Motions</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Label className="text-sm font-normal cursor-help">Draft Motions</Label>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-xs">
+                              <p>Prepare formal requests to the court for specific rulings or orders, following proper legal format and citation standards.</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">88/year</p>
                           <Select
                             value={String(formData.taskSelection.legal["Draft Motions"] || 0)}
@@ -600,7 +671,14 @@ export default function AssessmentPage() {
                       </h3>
                       <div className="space-y-3 flex flex-col flex-1">
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Reception: Answer Inquires"] || 0)}`}>
-                          <Label className="text-sm font-normal">Reception: Answer Inquires</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Label className="text-sm font-normal cursor-help">Reception: Answer Inquires</Label>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-xs">
+                              <p>Respond to phone calls, emails, and walk-in inquiries from potential and existing clients, providing information and routing to appropriate staff.</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">318/year</p>
                           <Select
                             value={String(formData.taskSelection.peopleFacing["Reception: Answer Inquires"] || 0)}
@@ -618,7 +696,14 @@ export default function AssessmentPage() {
                           </Select>
                         </div>
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Request Documentation"] || 0)}`}>
-                          <Label className="text-sm font-normal">Request Documentation</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Label className="text-sm font-normal cursor-help">Request Documentation</Label>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-xs">
+                              <p>Contact clients and third parties to obtain necessary documents, follow up on outstanding requests, and track document collection status.</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">309/year</p>
                           <Select
                             value={String(formData.taskSelection.peopleFacing["Request Documentation"] || 0)}
@@ -636,7 +721,14 @@ export default function AssessmentPage() {
                           </Select>
                         </div>
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Confirm Appointments With Clients"] || 0)}`}>
-                          <Label className="text-sm font-normal">Confirm Appointments With Clients</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Label className="text-sm font-normal cursor-help">Confirm Appointments With Clients</Label>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-xs">
+                              <p>Contact clients to verify upcoming appointments, send reminders, reschedule as needed, and reduce no-shows.</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">246/year</p>
                           <Select
                             value={String(formData.taskSelection.peopleFacing["Confirm Appointments With Clients"] || 0)}
@@ -654,7 +746,14 @@ export default function AssessmentPage() {
                           </Select>
                         </div>
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Intake: Qualify & Obtain Retainer"] || 0)}`}>
-                          <Label className="text-sm font-normal">Intake: Qualify & Obtain Retainer</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Label className="text-sm font-normal cursor-help">Intake: Qualify & Obtain Retainer</Label>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-xs">
+                              <p>Screen potential clients for case viability, collect initial information, explain engagement terms, and secure retainer agreements.</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">165/year</p>
                           <Select
                             value={String(formData.taskSelection.peopleFacing["Intake: Qualify & Obtain Retainer"] || 0)}
@@ -672,7 +771,14 @@ export default function AssessmentPage() {
                           </Select>
                         </div>
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Intake: Qualify & Schedule Leads"] || 0)}`}>
-                          <Label className="text-sm font-normal">Intake: Qualify & Schedule Leads</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Label className="text-sm font-normal cursor-help">Intake: Qualify & Schedule Leads</Label>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-xs">
+                              <p>Evaluate incoming leads, determine if they meet firm criteria, and schedule consultations with appropriate attorneys.</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">136/year</p>
                           <Select
                             value={String(formData.taskSelection.peopleFacing["Intake: Qualify & Schedule Leads"] || 0)}
@@ -721,7 +827,14 @@ export default function AssessmentPage() {
                       </h3>
                       <div className="space-y-3 flex flex-col flex-1">
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Manage Social Media"] || 0)}`}>
-                          <Label className="text-sm font-normal">Manage Social Media</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Label className="text-sm font-normal cursor-help">Manage Social Media</Label>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-xs">
+                              <p>Create and schedule posts, monitor engagement, respond to comments, and maintain consistent social media presence across platforms.</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">71/year</p>
                           <Select
                             value={String(formData.taskSelection.marketing["Manage Social Media"] || 0)}
@@ -739,7 +852,14 @@ export default function AssessmentPage() {
                           </Select>
                         </div>
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Create Graphic Material"] || 0)}`}>
-                          <Label className="text-sm font-normal">Create Graphic Material</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Label className="text-sm font-normal cursor-help">Create Graphic Material</Label>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-xs">
+                              <p>Design visual content including social media graphics, flyers, brochures, and other marketing materials using design tools.</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">51/year</p>
                           <Select
                             value={String(formData.taskSelection.marketing["Create Graphic Material"] || 0)}
@@ -757,7 +877,14 @@ export default function AssessmentPage() {
                           </Select>
                         </div>
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Keep Website Up To Date"] || 0)}`}>
-                          <Label className="text-sm font-normal">Keep Website Up To Date</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Label className="text-sm font-normal cursor-help">Keep Website Up To Date</Label>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-xs">
+                              <p>Update website content, maintain accuracy of information, add new pages or blog posts, and ensure site functionality.</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">43/year</p>
                           <Select
                             value={String(formData.taskSelection.marketing["Keep Website Up To Date"] || 0)}
@@ -775,7 +902,14 @@ export default function AssessmentPage() {
                           </Select>
                         </div>
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Reply to Messages On Social Media"] || 0)}`}>
-                          <Label className="text-sm font-normal">Reply to Messages On Social Media</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Label className="text-sm font-normal cursor-help">Reply to Messages On Social Media</Label>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-xs">
+                              <p>Monitor and respond to direct messages and comments on social media platforms, engage with followers, and address inquiries professionally.</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">43/year</p>
                           <Select
                             value={String(formData.taskSelection.marketing["Reply to Messages On Social Media"] || 0)}
@@ -793,7 +927,14 @@ export default function AssessmentPage() {
                           </Select>
                         </div>
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Create & Edit Simple Videos"] || 0)}`}>
-                          <Label className="text-sm font-normal">Create & Edit Simple Videos</Label>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Label className="text-sm font-normal cursor-help">Create & Edit Simple Videos</Label>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-xs">
+                              <p>Produce and edit short videos for marketing purposes, including social media clips, testimonials, and promotional content using basic video editing tools.</p>
+                            </TooltipContent>
+                          </Tooltip>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">37/year</p>
                           <Select
                             value={String(formData.taskSelection.marketing["Create & Edit Simple Videos"] || 0)}
