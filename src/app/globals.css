@@ -3,37 +3,37 @@
 
 /* ============================================
    LAWMATCH DESIGN SYSTEM
-   Pixel-perfect color system matching design reference
+   Coral and Blue color scheme
    All colors in HSL for theme compatibility
    ============================================ */
 
 :root {
-  /* LawMatch Professional Navy Theme */
-  --background: 210 20% 98%;        /* Light gray background #F9FAFB */
-  --foreground: 215 25% 17%;        /* Dark text #1F2937 */
+  /* LawMatch Coral & Blue Theme */
+  --background: 210 40% 98%;        /* Light blue-tinted background */
+  --foreground: 215 30% 20%;        /* Dark blue-gray text */
 
   /* Card System - Clean white cards */
   --card: 0 0% 100%;                /* Pure white #FFFFFF */
-  --card-foreground: 215 25% 17%;   /* Dark text #1F2937 */
+  --card-foreground: 215 30% 20%;   /* Dark blue-gray text */
 
   /* Popover */
   --popover: 0 0% 100%;
-  --popover-foreground: 215 25% 17%;
+  --popover-foreground: 215 30% 20%;
 
-  /* Primary: Professional Navy Blue */
-  --primary: 210 52% 24%;           /* Navy #1E3A5F */
+  /* Primary: Professional Blue */
+  --primary: 210 85% 45%;           /* Vibrant Blue #1166D5 */
   --primary-foreground: 0 0% 100%;  /* White text */
 
-  /* Secondary: Accent Orange/Gold for CTAs */
-  --secondary: 38 92% 50%;          /* Orange #F59E0B */
+  /* Secondary: Coral for CTAs */
+  --secondary: 12 85% 65%;          /* Coral #FF7A6B */
   --secondary-foreground: 0 0% 100%; /* White text */
 
-  /* Muted: Subtle gray backgrounds */
-  --muted: 210 20% 96%;             /* Light gray #F3F4F6 */
-  --muted-foreground: 215 14% 42%;  /* Muted text #6B7280 */
+  /* Muted: Subtle blue-gray backgrounds */
+  --muted: 210 30% 96%;             /* Light blue-gray */
+  --muted-foreground: 215 20% 45%;  /* Muted blue-gray text */
 
-  /* Accent: Same as secondary for consistency */
-  --accent: 38 92% 50%;             /* Orange #F59E0B */
+  /* Accent: Coral accent */
+  --accent: 12 85% 65%;             /* Coral #FF7A6B */
   --accent-foreground: 0 0% 100%;
 
   /* Success: Green for positive indicators */
@@ -44,34 +44,40 @@
   --destructive: 0 70% 50%;
   --destructive-foreground: 0 0% 100%;
 
-  /* Borders: Subtle gray borders */
-  --border: 214 20% 90%;            /* #E5E7EB */
-  --input: 214 20% 83%;             /* #D1D5DB */
-  --ring: 38 92% 50%;               /* Orange focus ring */
+  /* Borders: Subtle blue-gray borders */
+  --border: 214 30% 88%;            /* Light blue-gray border */
+  --input: 214 25% 85%;             /* Input borders */
+  --ring: 12 85% 65%;               /* Coral focus ring */
 
   /* Border Radius - Modern rounded corners */
   --radius: 0.5rem;                 /* 8px for cards */
 
   /* Sidebar */
   --sidebar-background: 0 0% 100%;
-  --sidebar-foreground: 215 25% 17%;
-  --sidebar-primary: 210 52% 24%;
+  --sidebar-foreground: 215 30% 20%;
+  --sidebar-primary: 210 85% 45%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 210 20% 96%;
-  --sidebar-accent-foreground: 215 25% 17%;
-  --sidebar-border: 214 20% 90%;
-  --sidebar-ring: 38 92% 50%;
+  --sidebar-accent: 210 30% 96%;
+  --sidebar-accent-foreground: 215 30% 20%;
+  --sidebar-border: 214 30% 88%;
+  --sidebar-ring: 12 85% 65%;
 
-  /* Custom LawMatch Colors */
-  --lawmatch-navy: 210 52% 24%;
-  --lawmatch-navy-dark: 210 56% 18%;
-  --lawmatch-orange: 38 92% 50%;
-  --lawmatch-orange-hover: 32 94% 43%;
-  --lawmatch-gray-50: 210 20% 98%;
-  --lawmatch-gray-100: 210 20% 96%;
-  --lawmatch-gray-200: 214 20% 90%;
-  --lawmatch-gray-500: 215 14% 42%;
-  --lawmatch-gray-800: 215 25% 17%;
+  /* Custom LawMatch Colors - Coral & Blue */
+  --lawmatch-blue: 210 85% 45%;
+  --lawmatch-blue-dark: 210 90% 38%;
+  --lawmatch-coral: 12 85% 65%;
+  --lawmatch-coral-hover: 12 90% 58%;
+  --lawmatch-gray-50: 210 30% 98%;
+  --lawmatch-gray-100: 210 30% 96%;
+  --lawmatch-gray-200: 214 30% 88%;
+  --lawmatch-gray-500: 215 20% 45%;
+  --lawmatch-gray-800: 215 30% 20%;
+
+  /* Legacy compatibility (for existing code references) */
+  --lawmatch-navy: 210 85% 45%;
+  --lawmatch-navy-dark: 210 90% 38%;
+  --lawmatch-orange: 12 85% 65%;
+  --lawmatch-orange-hover: 12 90% 58%;
 }
 
 .dark {

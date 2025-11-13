@@ -14,10 +14,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Scale, FileText, Handshake } from "lucide-react";
 
 interface TaskSelection {
-  administrative: string[];
-  legal: string[];
-  peopleFacing: string[];
-  marketing: string[];
+  administrative: { [key: string]: number };
+  legal: { [key: string]: number };
+  peopleFacing: { [key: string]: number };
+  marketing: { [key: string]: number };
+}
+
+interface OtherOptions {
+  administrative: string;
+  legal: string;
+  peopleFacing: string;
+  marketing: string;
 }
 
 interface AssessmentData {
@@ -25,6 +32,7 @@ interface AssessmentData {
   role: string[];
   practiceArea: string[];
   taskSelection: TaskSelection;
+  otherOptions: OtherOptions;
   supportNeeded: string[];
   weeklyHours: string;
   software: string[];
@@ -41,10 +49,16 @@ export default function AssessmentPage() {
     role: [],
     practiceArea: [],
     taskSelection: {
-      administrative: [],
-      legal: [],
-      peopleFacing: [],
-      marketing: [],
+      administrative: {},
+      legal: {},
+      peopleFacing: {},
+      marketing: {},
+    },
+    otherOptions: {
+      administrative: "",
+      legal: "",
+      peopleFacing: "",
+      marketing: "",
     },
     supportNeeded: [],
     weeklyHours: "",
@@ -81,16 +95,32 @@ export default function AssessmentPage() {
     setFormData({ ...formData, [field]: updated });
   };
 
-  const handleTaskSelection = (category: keyof TaskSelection, value: string) => {
-    const current = formData.taskSelection[category];
-    const updated = current.includes(value)
-      ? current.filter((item) => item !== value)
-      : [...current, value];
+  const handleTaskSelection = (category: keyof TaskSelection, task: string, priority: number) => {
+    const updated = { ...formData.taskSelection[category] };
+
+    if (priority === 0) {
+      // Remove the task if priority is set to 0 (not specified)
+      delete updated[task];
+    } else {
+      // Set the task with the selected priority
+      updated[task] = priority;
+    }
+
     setFormData({
       ...formData,
       taskSelection: {
         ...formData.taskSelection,
         [category]: updated,
+      },
+    });
+  };
+
+  const handleOtherOptionChange = (category: keyof OtherOptions, value: string) => {
+    setFormData({
+      ...formData,
+      otherOptions: {
+        ...formData.otherOptions,
+        [category]: value,
       },
     });
   };
@@ -287,9 +317,9 @@ export default function AssessmentPage() {
               {currentStep === 2 && (
                 <div className="space-y-6">
                   <div>
-                    <Label className="text-base">Select up to 5 tasks per category that are most important for your practice</Label>
+                    <Label className="text-base">Rate the priority of tasks for your practice</Label>
                     <p className="text-sm text-[hsl(var(--muted-foreground))] mt-1">
-                      Choose the tasks that best represent the work your legal support will handle
+                      0 = Not Specified, 1 = Low, 2 = Medium, 3 = High
                     </p>
                   </div>
 
@@ -299,83 +329,118 @@ export default function AssessmentPage() {
                       <h3 className="font-semibold text-[hsl(var(--primary))] border-b pb-2">
                         ADMINISTRATIVE
                       </h3>
-                      <div className="space-y-2">
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="admin-crm"
-                            checked={formData.taskSelection.administrative.includes("Use CRM & CMS")}
-                            onCheckedChange={() => handleTaskSelection("administrative", "Use CRM & CMS")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="admin-crm" className="font-normal text-sm cursor-pointer">
-                              Use CRM & CMS
-                            </Label>
-                            <p className="text-xs text-[hsl(var(--muted-foreground))]">330/year</p>
-                          </div>
+                      <div className="space-y-3">
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Use CRM & CMS</Label>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))]">330/year</p>
+                          <Select
+                            value={String(formData.taskSelection.administrative["Use CRM & CMS"] || 0)}
+                            onValueChange={(value) => handleTaskSelection("administrative", "Use CRM & CMS", parseInt(value))}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="0">0 - Not Specified</SelectItem>
+                              <SelectItem value="1">1 - Low</SelectItem>
+                              <SelectItem value="2">2 - Medium</SelectItem>
+                              <SelectItem value="3">3 - High</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="admin-organize"
-                            checked={formData.taskSelection.administrative.includes("Organize & File Documents")}
-                            onCheckedChange={() => handleTaskSelection("administrative", "Organize & File Documents")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="admin-organize" className="font-normal text-sm cursor-pointer">
-                              Organize & File Documents
-                            </Label>
-                            <p className="text-xs text-[hsl(var(--muted-foreground))]">308/year</p>
-                          </div>
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Organize & File Documents</Label>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))]">308/year</p>
+                          <Select
+                            value={String(formData.taskSelection.administrative["Organize & File Documents"] || 0)}
+                            onValueChange={(value) => handleTaskSelection("administrative", "Organize & File Documents", parseInt(value))}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="0">0 - Not Specified</SelectItem>
+                              <SelectItem value="1">1 - Low</SelectItem>
+                              <SelectItem value="2">2 - Medium</SelectItem>
+                              <SelectItem value="3">3 - High</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="admin-emails"
-                            checked={formData.taskSelection.administrative.includes("Manage Emails")}
-                            onCheckedChange={() => handleTaskSelection("administrative", "Manage Emails")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="admin-emails" className="font-normal text-sm cursor-pointer">
-                              Manage Emails
-                            </Label>
-                            <p className="text-xs text-[hsl(var(--muted-foreground))]">298/year</p>
-                          </div>
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Manage Emails</Label>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))]">298/year</p>
+                          <Select
+                            value={String(formData.taskSelection.administrative["Manage Emails"] || 0)}
+                            onValueChange={(value) => handleTaskSelection("administrative", "Manage Emails", parseInt(value))}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="0">0 - Not Specified</SelectItem>
+                              <SelectItem value="1">1 - Low</SelectItem>
+                              <SelectItem value="2">2 - Medium</SelectItem>
+                              <SelectItem value="3">3 - High</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="admin-projects"
-                            checked={formData.taskSelection.administrative.includes("Manage Simple Projects")}
-                            onCheckedChange={() => handleTaskSelection("administrative", "Manage Simple Projects")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="admin-projects" className="font-normal text-sm cursor-pointer">
-                              Manage Simple Projects
-                            </Label>
-                            <p className="text-xs text-[hsl(var(--muted-foreground))]">256/year</p>
-                          </div>
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Manage Simple Projects</Label>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))]">256/year</p>
+                          <Select
+                            value={String(formData.taskSelection.administrative["Manage Simple Projects"] || 0)}
+                            onValueChange={(value) => handleTaskSelection("administrative", "Manage Simple Projects", parseInt(value))}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="0">0 - Not Specified</SelectItem>
+                              <SelectItem value="1">1 - Low</SelectItem>
+                              <SelectItem value="2">2 - Medium</SelectItem>
+                              <SelectItem value="3">3 - High</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="admin-track"
-                            checked={formData.taskSelection.administrative.includes("Track & Update Cases")}
-                            onCheckedChange={() => handleTaskSelection("administrative", "Track & Update Cases")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="admin-track" className="font-normal text-sm cursor-pointer">
-                              Track & Update Cases
-                            </Label>
-                            <p className="text-xs text-[hsl(var(--muted-foreground))]">243/year</p>
-                          </div>
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Track & Update Cases</Label>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))]">243/year</p>
+                          <Select
+                            value={String(formData.taskSelection.administrative["Track & Update Cases"] || 0)}
+                            onValueChange={(value) => handleTaskSelection("administrative", "Track & Update Cases", parseInt(value))}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="0">0 - Not Specified</SelectItem>
+                              <SelectItem value="1">1 - Low</SelectItem>
+                              <SelectItem value="2">2 - Medium</SelectItem>
+                              <SelectItem value="3">3 - High</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="admin-other"
-                            checked={formData.taskSelection.administrative.includes("Other")}
-                            onCheckedChange={() => handleTaskSelection("administrative", "Other")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="admin-other" className="font-normal text-sm cursor-pointer">
-                              Other
-                            </Label>
-                          </div>
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Other</Label>
+                          <Select
+                            value={formData.otherOptions.administrative}
+                            onValueChange={(value) => {
+                              handleOtherOptionChange("administrative", value);
+                              if (value) handleTaskSelection("administrative", value, 2);
+                            }}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue placeholder="Select option" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Data Entry">Data Entry</SelectItem>
+                              <SelectItem value="Meeting Coordination">Meeting Coordination</SelectItem>
+                              <SelectItem value="Travel Arrangements">Travel Arrangements</SelectItem>
+                              <SelectItem value="Expense Management">Expense Management</SelectItem>
+                              <SelectItem value="Office Supply Management">Office Supply Management</SelectItem>
+                              <SelectItem value="Records Management">Records Management</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
                       </div>
                     </div>
@@ -385,83 +450,118 @@ export default function AssessmentPage() {
                       <h3 className="font-semibold text-[hsl(var(--primary))] border-b pb-2">
                         LEGAL
                       </h3>
-                      <div className="space-y-2">
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="legal-draft"
-                            checked={formData.taskSelection.legal.includes("Draft Legal Documents")}
-                            onCheckedChange={() => handleTaskSelection("legal", "Draft Legal Documents")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="legal-draft" className="font-normal text-sm cursor-pointer">
-                              Draft Legal Documents
-                            </Label>
-                            <p className="text-xs text-[hsl(var(--muted-foreground))]">197/year</p>
-                          </div>
+                      <div className="space-y-3">
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Draft Legal Documents</Label>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))]">197/year</p>
+                          <Select
+                            value={String(formData.taskSelection.legal["Draft Legal Documents"] || 0)}
+                            onValueChange={(value) => handleTaskSelection("legal", "Draft Legal Documents", parseInt(value))}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="0">0 - Not Specified</SelectItem>
+                              <SelectItem value="1">1 - Low</SelectItem>
+                              <SelectItem value="2">2 - Medium</SelectItem>
+                              <SelectItem value="3">3 - High</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="legal-file"
-                            checked={formData.taskSelection.legal.includes("File/E-File Court Cases")}
-                            onCheckedChange={() => handleTaskSelection("legal", "File/E-File Court Cases")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="legal-file" className="font-normal text-sm cursor-pointer">
-                              File/E-File Court Cases
-                            </Label>
-                            <p className="text-xs text-[hsl(var(--muted-foreground))]">127/year</p>
-                          </div>
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">File/E-File Court Cases</Label>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))]">127/year</p>
+                          <Select
+                            value={String(formData.taskSelection.legal["File/E-File Court Cases"] || 0)}
+                            onValueChange={(value) => handleTaskSelection("legal", "File/E-File Court Cases", parseInt(value))}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="0">0 - Not Specified</SelectItem>
+                              <SelectItem value="1">1 - Low</SelectItem>
+                              <SelectItem value="2">2 - Medium</SelectItem>
+                              <SelectItem value="3">3 - High</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="legal-cover"
-                            checked={formData.taskSelection.legal.includes("Draft Cover Letters")}
-                            onCheckedChange={() => handleTaskSelection("legal", "Draft Cover Letters")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="legal-cover" className="font-normal text-sm cursor-pointer">
-                              Draft Cover Letters
-                            </Label>
-                            <p className="text-xs text-[hsl(var(--muted-foreground))]">116/year</p>
-                          </div>
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Draft Cover Letters</Label>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))]">116/year</p>
+                          <Select
+                            value={String(formData.taskSelection.legal["Draft Cover Letters"] || 0)}
+                            onValueChange={(value) => handleTaskSelection("legal", "Draft Cover Letters", parseInt(value))}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="0">0 - Not Specified</SelectItem>
+                              <SelectItem value="1">1 - Low</SelectItem>
+                              <SelectItem value="2">2 - Medium</SelectItem>
+                              <SelectItem value="3">3 - High</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="legal-affidavits"
-                            checked={formData.taskSelection.legal.includes("Draft Affidavits")}
-                            onCheckedChange={() => handleTaskSelection("legal", "Draft Affidavits")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="legal-affidavits" className="font-normal text-sm cursor-pointer">
-                              Draft Affidavits
-                            </Label>
-                            <p className="text-xs text-[hsl(var(--muted-foreground))]">94/year</p>
-                          </div>
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Draft Affidavits</Label>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))]">94/year</p>
+                          <Select
+                            value={String(formData.taskSelection.legal["Draft Affidavits"] || 0)}
+                            onValueChange={(value) => handleTaskSelection("legal", "Draft Affidavits", parseInt(value))}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="0">0 - Not Specified</SelectItem>
+                              <SelectItem value="1">1 - Low</SelectItem>
+                              <SelectItem value="2">2 - Medium</SelectItem>
+                              <SelectItem value="3">3 - High</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="legal-motions"
-                            checked={formData.taskSelection.legal.includes("Draft Motions")}
-                            onCheckedChange={() => handleTaskSelection("legal", "Draft Motions")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="legal-motions" className="font-normal text-sm cursor-pointer">
-                              Draft Motions
-                            </Label>
-                            <p className="text-xs text-[hsl(var(--muted-foreground))]">88/year</p>
-                          </div>
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Draft Motions</Label>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))]">88/year</p>
+                          <Select
+                            value={String(formData.taskSelection.legal["Draft Motions"] || 0)}
+                            onValueChange={(value) => handleTaskSelection("legal", "Draft Motions", parseInt(value))}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="0">0 - Not Specified</SelectItem>
+                              <SelectItem value="1">1 - Low</SelectItem>
+                              <SelectItem value="2">2 - Medium</SelectItem>
+                              <SelectItem value="3">3 - High</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="legal-other"
-                            checked={formData.taskSelection.legal.includes("Other")}
-                            onCheckedChange={() => handleTaskSelection("legal", "Other")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="legal-other" className="font-normal text-sm cursor-pointer">
-                              Other
-                            </Label>
-                          </div>
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Other</Label>
+                          <Select
+                            value={formData.otherOptions.legal}
+                            onValueChange={(value) => {
+                              handleOtherOptionChange("legal", value);
+                              if (value) handleTaskSelection("legal", value, 2);
+                            }}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue placeholder="Select option" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Legal Research">Legal Research</SelectItem>
+                              <SelectItem value="Case Brief Preparation">Case Brief Preparation</SelectItem>
+                              <SelectItem value="Discovery Assistance">Discovery Assistance</SelectItem>
+                              <SelectItem value="Trial Preparation">Trial Preparation</SelectItem>
+                              <SelectItem value="Deposition Summaries">Deposition Summaries</SelectItem>
+                              <SelectItem value="Document Review">Document Review</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
                       </div>
                     </div>
@@ -471,83 +571,118 @@ export default function AssessmentPage() {
                       <h3 className="font-semibold text-[hsl(var(--primary))] border-b pb-2">
                         PEOPLE FACING
                       </h3>
-                      <div className="space-y-2">
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="people-reception"
-                            checked={formData.taskSelection.peopleFacing.includes("Reception: Answer Inquires")}
-                            onCheckedChange={() => handleTaskSelection("peopleFacing", "Reception: Answer Inquires")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="people-reception" className="font-normal text-sm cursor-pointer">
-                              Reception: Answer Inquires
-                            </Label>
-                            <p className="text-xs text-[hsl(var(--muted-foreground))]">318/year</p>
-                          </div>
+                      <div className="space-y-3">
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Reception: Answer Inquires</Label>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))]">318/year</p>
+                          <Select
+                            value={String(formData.taskSelection.peopleFacing["Reception: Answer Inquires"] || 0)}
+                            onValueChange={(value) => handleTaskSelection("peopleFacing", "Reception: Answer Inquires", parseInt(value))}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="0">0 - Not Specified</SelectItem>
+                              <SelectItem value="1">1 - Low</SelectItem>
+                              <SelectItem value="2">2 - Medium</SelectItem>
+                              <SelectItem value="3">3 - High</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="people-request"
-                            checked={formData.taskSelection.peopleFacing.includes("Request Documentation")}
-                            onCheckedChange={() => handleTaskSelection("peopleFacing", "Request Documentation")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="people-request" className="font-normal text-sm cursor-pointer">
-                              Request Documentation
-                            </Label>
-                            <p className="text-xs text-[hsl(var(--muted-foreground))]">309/year</p>
-                          </div>
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Request Documentation</Label>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))]">309/year</p>
+                          <Select
+                            value={String(formData.taskSelection.peopleFacing["Request Documentation"] || 0)}
+                            onValueChange={(value) => handleTaskSelection("peopleFacing", "Request Documentation", parseInt(value))}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="0">0 - Not Specified</SelectItem>
+                              <SelectItem value="1">1 - Low</SelectItem>
+                              <SelectItem value="2">2 - Medium</SelectItem>
+                              <SelectItem value="3">3 - High</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="people-confirm"
-                            checked={formData.taskSelection.peopleFacing.includes("Confirm Appointments With Clients")}
-                            onCheckedChange={() => handleTaskSelection("peopleFacing", "Confirm Appointments With Clients")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="people-confirm" className="font-normal text-sm cursor-pointer">
-                              Confirm Appointments With Clients
-                            </Label>
-                            <p className="text-xs text-[hsl(var(--muted-foreground))]">246/year</p>
-                          </div>
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Confirm Appointments With Clients</Label>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))]">246/year</p>
+                          <Select
+                            value={String(formData.taskSelection.peopleFacing["Confirm Appointments With Clients"] || 0)}
+                            onValueChange={(value) => handleTaskSelection("peopleFacing", "Confirm Appointments With Clients", parseInt(value))}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="0">0 - Not Specified</SelectItem>
+                              <SelectItem value="1">1 - Low</SelectItem>
+                              <SelectItem value="2">2 - Medium</SelectItem>
+                              <SelectItem value="3">3 - High</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="people-retainer"
-                            checked={formData.taskSelection.peopleFacing.includes("Intake: Qualify & Obtain Retainer")}
-                            onCheckedChange={() => handleTaskSelection("peopleFacing", "Intake: Qualify & Obtain Retainer")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="people-retainer" className="font-normal text-sm cursor-pointer">
-                              Intake: Qualify & Obtain Retainer
-                            </Label>
-                            <p className="text-xs text-[hsl(var(--muted-foreground))]">165/year</p>
-                          </div>
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Intake: Qualify & Obtain Retainer</Label>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))]">165/year</p>
+                          <Select
+                            value={String(formData.taskSelection.peopleFacing["Intake: Qualify & Obtain Retainer"] || 0)}
+                            onValueChange={(value) => handleTaskSelection("peopleFacing", "Intake: Qualify & Obtain Retainer", parseInt(value))}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="0">0 - Not Specified</SelectItem>
+                              <SelectItem value="1">1 - Low</SelectItem>
+                              <SelectItem value="2">2 - Medium</SelectItem>
+                              <SelectItem value="3">3 - High</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="people-schedule"
-                            checked={formData.taskSelection.peopleFacing.includes("Intake: Qualify & Schedule Leads")}
-                            onCheckedChange={() => handleTaskSelection("peopleFacing", "Intake: Qualify & Schedule Leads")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="people-schedule" className="font-normal text-sm cursor-pointer">
-                              Intake: Qualify & Schedule Leads
-                            </Label>
-                            <p className="text-xs text-[hsl(var(--muted-foreground))]">136/year</p>
-                          </div>
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Intake: Qualify & Schedule Leads</Label>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))]">136/year</p>
+                          <Select
+                            value={String(formData.taskSelection.peopleFacing["Intake: Qualify & Schedule Leads"] || 0)}
+                            onValueChange={(value) => handleTaskSelection("peopleFacing", "Intake: Qualify & Schedule Leads", parseInt(value))}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="0">0 - Not Specified</SelectItem>
+                              <SelectItem value="1">1 - Low</SelectItem>
+                              <SelectItem value="2">2 - Medium</SelectItem>
+                              <SelectItem value="3">3 - High</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="people-other"
-                            checked={formData.taskSelection.peopleFacing.includes("Other")}
-                            onCheckedChange={() => handleTaskSelection("peopleFacing", "Other")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="people-other" className="font-normal text-sm cursor-pointer">
-                              Other
-                            </Label>
-                          </div>
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Other</Label>
+                          <Select
+                            value={formData.otherOptions.peopleFacing}
+                            onValueChange={(value) => {
+                              handleOtherOptionChange("peopleFacing", value);
+                              if (value) handleTaskSelection("peopleFacing", value, 2);
+                            }}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue placeholder="Select option" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Client Follow-up">Client Follow-up</SelectItem>
+                              <SelectItem value="Witness Coordination">Witness Coordination</SelectItem>
+                              <SelectItem value="Court Appearance Support">Court Appearance Support</SelectItem>
+                              <SelectItem value="Translation Services">Translation Services</SelectItem>
+                              <SelectItem value="Conflict Checks">Conflict Checks</SelectItem>
+                              <SelectItem value="Customer Service">Customer Service</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
                       </div>
                     </div>
@@ -557,83 +692,118 @@ export default function AssessmentPage() {
                       <h3 className="font-semibold text-[hsl(var(--primary))] border-b pb-2">
                         MARKETING
                       </h3>
-                      <div className="space-y-2">
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="marketing-social"
-                            checked={formData.taskSelection.marketing.includes("Manage Social Media")}
-                            onCheckedChange={() => handleTaskSelection("marketing", "Manage Social Media")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="marketing-social" className="font-normal text-sm cursor-pointer">
-                              Manage Social Media
-                            </Label>
-                            <p className="text-xs text-[hsl(var(--muted-foreground))]">71/year</p>
-                          </div>
+                      <div className="space-y-3">
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Manage Social Media</Label>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))]">71/year</p>
+                          <Select
+                            value={String(formData.taskSelection.marketing["Manage Social Media"] || 0)}
+                            onValueChange={(value) => handleTaskSelection("marketing", "Manage Social Media", parseInt(value))}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="0">0 - Not Specified</SelectItem>
+                              <SelectItem value="1">1 - Low</SelectItem>
+                              <SelectItem value="2">2 - Medium</SelectItem>
+                              <SelectItem value="3">3 - High</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="marketing-graphic"
-                            checked={formData.taskSelection.marketing.includes("Create Graphic Material")}
-                            onCheckedChange={() => handleTaskSelection("marketing", "Create Graphic Material")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="marketing-graphic" className="font-normal text-sm cursor-pointer">
-                              Create Graphic Material
-                            </Label>
-                            <p className="text-xs text-[hsl(var(--muted-foreground))]">51/year</p>
-                          </div>
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Create Graphic Material</Label>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))]">51/year</p>
+                          <Select
+                            value={String(formData.taskSelection.marketing["Create Graphic Material"] || 0)}
+                            onValueChange={(value) => handleTaskSelection("marketing", "Create Graphic Material", parseInt(value))}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="0">0 - Not Specified</SelectItem>
+                              <SelectItem value="1">1 - Low</SelectItem>
+                              <SelectItem value="2">2 - Medium</SelectItem>
+                              <SelectItem value="3">3 - High</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="marketing-website"
-                            checked={formData.taskSelection.marketing.includes("Keep Website Up To Date")}
-                            onCheckedChange={() => handleTaskSelection("marketing", "Keep Website Up To Date")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="marketing-website" className="font-normal text-sm cursor-pointer">
-                              Keep Website Up To Date
-                            </Label>
-                            <p className="text-xs text-[hsl(var(--muted-foreground))]">43/year</p>
-                          </div>
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Keep Website Up To Date</Label>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))]">43/year</p>
+                          <Select
+                            value={String(formData.taskSelection.marketing["Keep Website Up To Date"] || 0)}
+                            onValueChange={(value) => handleTaskSelection("marketing", "Keep Website Up To Date", parseInt(value))}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="0">0 - Not Specified</SelectItem>
+                              <SelectItem value="1">1 - Low</SelectItem>
+                              <SelectItem value="2">2 - Medium</SelectItem>
+                              <SelectItem value="3">3 - High</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="marketing-reply"
-                            checked={formData.taskSelection.marketing.includes("Reply to Messages On Social Media")}
-                            onCheckedChange={() => handleTaskSelection("marketing", "Reply to Messages On Social Media")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="marketing-reply" className="font-normal text-sm cursor-pointer">
-                              Reply to Messages On Social Media
-                            </Label>
-                            <p className="text-xs text-[hsl(var(--muted-foreground))]">43/year</p>
-                          </div>
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Reply to Messages On Social Media</Label>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))]">43/year</p>
+                          <Select
+                            value={String(formData.taskSelection.marketing["Reply to Messages On Social Media"] || 0)}
+                            onValueChange={(value) => handleTaskSelection("marketing", "Reply to Messages On Social Media", parseInt(value))}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="0">0 - Not Specified</SelectItem>
+                              <SelectItem value="1">1 - Low</SelectItem>
+                              <SelectItem value="2">2 - Medium</SelectItem>
+                              <SelectItem value="3">3 - High</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="marketing-videos"
-                            checked={formData.taskSelection.marketing.includes("Create & Edit Simple Videos")}
-                            onCheckedChange={() => handleTaskSelection("marketing", "Create & Edit Simple Videos")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="marketing-videos" className="font-normal text-sm cursor-pointer">
-                              Create & Edit Simple Videos
-                            </Label>
-                            <p className="text-xs text-[hsl(var(--muted-foreground))]">37/year</p>
-                          </div>
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Create & Edit Simple Videos</Label>
+                          <p className="text-xs text-[hsl(var(--muted-foreground))]">37/year</p>
+                          <Select
+                            value={String(formData.taskSelection.marketing["Create & Edit Simple Videos"] || 0)}
+                            onValueChange={(value) => handleTaskSelection("marketing", "Create & Edit Simple Videos", parseInt(value))}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="0">0 - Not Specified</SelectItem>
+                              <SelectItem value="1">1 - Low</SelectItem>
+                              <SelectItem value="2">2 - Medium</SelectItem>
+                              <SelectItem value="3">3 - High</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                        <div className="flex items-start space-x-2">
-                          <Checkbox
-                            id="marketing-other"
-                            checked={formData.taskSelection.marketing.includes("Other")}
-                            onCheckedChange={() => handleTaskSelection("marketing", "Other")}
-                          />
-                          <div className="flex-1">
-                            <Label htmlFor="marketing-other" className="font-normal text-sm cursor-pointer">
-                              Other
-                            </Label>
-                          </div>
+                        <div className="space-y-1">
+                          <Label className="text-sm font-normal">Other</Label>
+                          <Select
+                            value={formData.otherOptions.marketing}
+                            onValueChange={(value) => {
+                              handleOtherOptionChange("marketing", value);
+                              if (value) handleTaskSelection("marketing", value, 2);
+                            }}
+                          >
+                            <SelectTrigger className="h-9">
+                              <SelectValue placeholder="Select option" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Email Marketing">Email Marketing</SelectItem>
+                              <SelectItem value="SEO Optimization">SEO Optimization</SelectItem>
+                              <SelectItem value="Content Writing">Content Writing</SelectItem>
+                              <SelectItem value="Event Coordination">Event Coordination</SelectItem>
+                              <SelectItem value="Newsletter Management">Newsletter Management</SelectItem>
+                              <SelectItem value="Brand Management">Brand Management</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
                       </div>
                     </div>
@@ -700,16 +870,12 @@ export default function AssessmentPage() {
                     <Label>Contractor's Expected Weekly Hours</Label>
                     <RadioGroup value={formData.weeklyHours} onValueChange={(value) => setFormData({ ...formData, weeklyHours: value })}>
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="part-time-10-20" id="part-time-10-20" />
-                        <Label htmlFor="part-time-10-20" className="font-normal">Part-time (10-20 hours/week)</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="part-time-20-30" id="part-time-20-30" />
-                        <Label htmlFor="part-time-20-30" className="font-normal">Part-time (20-30 hours/week)</Label>
+                        <RadioGroupItem value="part-time" id="part-time" />
+                        <Label htmlFor="part-time" className="font-normal">Part-time</Label>
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="full-time" id="full-time" />
-                        <Label htmlFor="full-time" className="font-normal">Full-time (40+ hours/week)</Label>
+                        <Label htmlFor="full-time" className="font-normal">Full-time</Label>
                       </div>
                     </RadioGroup>
                   </div>
@@ -719,11 +885,14 @@ export default function AssessmentPage() {
               {/* Step 4: Software Requirements */}
               {currentStep === 4 && (
                 <div className="space-y-4">
-                  <Label>Software Proficiency Requirements (Select all that apply)</Label>
+                  <Label>Do you need specific software proficiency?</Label>
+                  <p className="text-sm text-[hsl(var(--muted-foreground))]">
+                    Select all software tools that your candidate should be proficient in
+                  </p>
 
                   <div className="space-y-4">
                     <div>
-                      <p className="text-sm font-medium mb-2">⚖️ Case Management</p>
+                      <p className="text-sm font-medium mb-2">⚖️ Case Management (e.g., Clio, MyCase, Filevine)</p>
                       <div className="space-y-2 ml-4">
                         <div className="flex items-center space-x-2">
                           <Checkbox
@@ -753,7 +922,7 @@ export default function AssessmentPage() {
                     </div>
 
                     <div>
-                      <p className="text-sm font-medium mb-2">👥 CRM</p>
+                      <p className="text-sm font-medium mb-2">👥 CRM (Client Relationship Management) (e.g., Lawmatics, HubSpot, Salesforce)</p>
                       <div className="space-y-2 ml-4">
                         <div className="flex items-center space-x-2">
                           <Checkbox
@@ -783,7 +952,45 @@ export default function AssessmentPage() {
                     </div>
 
                     <div>
-                      <p className="text-sm font-medium mb-2">💳 Billing</p>
+                      <p className="text-sm font-medium mb-2">💬 Communication & Collaboration (e.g., Outlook, Teams, Slack, Zoom)</p>
+                      <div className="space-y-2 ml-4">
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="outlook"
+                            checked={formData.software.includes("outlook")}
+                            onCheckedChange={() => handleCheckboxChange("software", "outlook")}
+                          />
+                          <Label htmlFor="outlook" className="font-normal">Outlook</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="teams"
+                            checked={formData.software.includes("teams")}
+                            onCheckedChange={() => handleCheckboxChange("software", "teams")}
+                          />
+                          <Label htmlFor="teams" className="font-normal">Microsoft Teams</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="slack"
+                            checked={formData.software.includes("slack")}
+                            onCheckedChange={() => handleCheckboxChange("software", "slack")}
+                          />
+                          <Label htmlFor="slack" className="font-normal">Slack</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="zoom"
+                            checked={formData.software.includes("zoom")}
+                            onCheckedChange={() => handleCheckboxChange("software", "zoom")}
+                          />
+                          <Label htmlFor="zoom" className="font-normal">Zoom</Label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <p className="text-sm font-medium mb-2">💳 Billing & Accounting (e.g., QuickBooks, TimeSolv, LeanLaw)</p>
                       <div className="space-y-2 ml-4">
                         <div className="flex items-center space-x-2">
                           <Checkbox
@@ -795,19 +1002,57 @@ export default function AssessmentPage() {
                         </div>
                         <div className="flex items-center space-x-2">
                           <Checkbox
+                            id="timesolv"
+                            checked={formData.software.includes("timesolv")}
+                            onCheckedChange={() => handleCheckboxChange("software", "timesolv")}
+                          />
+                          <Label htmlFor="timesolv" className="font-normal">TimeSolv</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
                             id="leanlaw"
                             checked={formData.software.includes("leanlaw")}
                             onCheckedChange={() => handleCheckboxChange("software", "leanlaw")}
                           />
                           <Label htmlFor="leanlaw" className="font-normal">LeanLaw</Label>
                         </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <p className="text-sm font-medium mb-2">🗓️ Project / Task Management (e.g., Asana, Trello, ClickUp, Notion)</p>
+                      <div className="space-y-2 ml-4">
                         <div className="flex items-center space-x-2">
                           <Checkbox
-                            id="timesolv"
-                            checked={formData.software.includes("timesolv")}
-                            onCheckedChange={() => handleCheckboxChange("software", "timesolv")}
+                            id="asana"
+                            checked={formData.software.includes("asana")}
+                            onCheckedChange={() => handleCheckboxChange("software", "asana")}
                           />
-                          <Label htmlFor="timesolv" className="font-normal">TimeSolv</Label>
+                          <Label htmlFor="asana" className="font-normal">Asana</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="trello"
+                            checked={formData.software.includes("trello")}
+                            onCheckedChange={() => handleCheckboxChange("software", "trello")}
+                          />
+                          <Label htmlFor="trello" className="font-normal">Trello</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="clickup"
+                            checked={formData.software.includes("clickup")}
+                            onCheckedChange={() => handleCheckboxChange("software", "clickup")}
+                          />
+                          <Label htmlFor="clickup" className="font-normal">ClickUp</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="notion"
+                            checked={formData.software.includes("notion")}
+                            onCheckedChange={() => handleCheckboxChange("software", "notion")}
+                          />
+                          <Label htmlFor="notion" className="font-normal">Notion</Label>
                         </div>
                       </div>
                     </div>
