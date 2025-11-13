@@ -136,6 +136,11 @@ export default function AssessmentPage() {
     }
   };
 
+  // Helper function to determine styling for "Other" select when a value is chosen
+  const getOtherSelectColor = (value: string): string => {
+    return value ? "bg-[#1166D5] border-[#1166D5] text-white hover:bg-[#0d52ab]" : "";
+  };
+
   // Helper function to determine container styling for the entire task item
   const getContainerColor = (priority: number): string => {
     switch (priority) {
@@ -346,11 +351,11 @@ export default function AssessmentPage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {/* Administrative Column */}
-                    <div className="space-y-3">
+                    <div className="flex flex-col space-y-3">
                       <h3 className="font-semibold text-[hsl(var(--primary))] border-b pb-2">
                         ADMINISTRATIVE
                       </h3>
-                      <div className="space-y-3">
+                      <div className="space-y-3 flex flex-col flex-1">
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.administrative["Use CRM & CMS"] || 0)}`}>
                           <Label className="text-sm font-normal">Use CRM & CMS</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">330/year</p>
@@ -441,7 +446,7 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-1">
+                        <div className="space-y-1 mt-auto">
                           <Label className="text-sm font-normal">Other</Label>
                           <Select
                             value={formData.otherOptions.administrative}
@@ -450,7 +455,7 @@ export default function AssessmentPage() {
                               if (value) handleTaskSelection("administrative", value, 2);
                             }}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getOtherSelectColor(formData.otherOptions.administrative)}`}>
                               <SelectValue placeholder="Select option" />
                             </SelectTrigger>
                             <SelectContent>
@@ -467,11 +472,11 @@ export default function AssessmentPage() {
                     </div>
 
                     {/* Legal Column */}
-                    <div className="space-y-3">
+                    <div className="flex flex-col space-y-3">
                       <h3 className="font-semibold text-[hsl(var(--primary))] border-b pb-2">
                         LEGAL
                       </h3>
-                      <div className="space-y-3">
+                      <div className="space-y-3 flex flex-col flex-1">
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["Draft Legal Documents"] || 0)}`}>
                           <Label className="text-sm font-normal">Draft Legal Documents</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">197/year</p>
@@ -562,7 +567,7 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-1">
+                        <div className="space-y-1 mt-auto">
                           <Label className="text-sm font-normal">Other</Label>
                           <Select
                             value={formData.otherOptions.legal}
@@ -571,7 +576,7 @@ export default function AssessmentPage() {
                               if (value) handleTaskSelection("legal", value, 2);
                             }}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getOtherSelectColor(formData.otherOptions.legal)}`}>
                               <SelectValue placeholder="Select option" />
                             </SelectTrigger>
                             <SelectContent>
@@ -588,11 +593,11 @@ export default function AssessmentPage() {
                     </div>
 
                     {/* People Facing Column */}
-                    <div className="space-y-3">
+                    <div className="flex flex-col space-y-3">
                       <h3 className="font-semibold text-[hsl(var(--primary))] border-b pb-2">
                         PEOPLE FACING
                       </h3>
-                      <div className="space-y-3">
+                      <div className="space-y-3 flex flex-col flex-1">
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Reception: Answer Inquires"] || 0)}`}>
                           <Label className="text-sm font-normal">Reception: Answer Inquires</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">318/year</p>
@@ -683,7 +688,7 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-1">
+                        <div className="space-y-1 mt-auto">
                           <Label className="text-sm font-normal">Other</Label>
                           <Select
                             value={formData.otherOptions.peopleFacing}
@@ -692,7 +697,7 @@ export default function AssessmentPage() {
                               if (value) handleTaskSelection("peopleFacing", value, 2);
                             }}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getOtherSelectColor(formData.otherOptions.peopleFacing)}`}>
                               <SelectValue placeholder="Select option" />
                             </SelectTrigger>
                             <SelectContent>
@@ -709,11 +714,11 @@ export default function AssessmentPage() {
                     </div>
 
                     {/* Marketing Column */}
-                    <div className="space-y-3">
+                    <div className="flex flex-col space-y-3">
                       <h3 className="font-semibold text-[hsl(var(--primary))] border-b pb-2">
                         MARKETING
                       </h3>
-                      <div className="space-y-3">
+                      <div className="space-y-3 flex flex-col flex-1">
                         <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Manage Social Media"] || 0)}`}>
                           <Label className="text-sm font-normal">Manage Social Media</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">71/year</p>
@@ -804,7 +809,7 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-1">
+                        <div className="space-y-1 mt-auto">
                           <Label className="text-sm font-normal">Other</Label>
                           <Select
                             value={formData.otherOptions.marketing}
@@ -813,7 +818,7 @@ export default function AssessmentPage() {
                               if (value) handleTaskSelection("marketing", value, 2);
                             }}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getOtherSelectColor(formData.otherOptions.marketing)}`}>
                               <SelectValue placeholder="Select option" />
                             </SelectTrigger>
                             <SelectContent>
