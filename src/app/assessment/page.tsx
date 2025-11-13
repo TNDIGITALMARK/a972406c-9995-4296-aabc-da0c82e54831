@@ -23,7 +23,7 @@ interface TaskSelection {
 interface AssessmentData {
   firmName: string;
   role: string[];
-  practiceArea: string;
+  practiceArea: string[];
   taskSelection: TaskSelection;
   supportNeeded: string[];
   weeklyHours: string;
@@ -39,7 +39,7 @@ export default function AssessmentPage() {
   const [formData, setFormData] = useState<AssessmentData>({
     firmName: "",
     role: [],
-    practiceArea: "",
+    practiceArea: [],
     taskSelection: {
       administrative: [],
       legal: [],
@@ -101,6 +101,14 @@ export default function AssessmentPage() {
       ? current.filter((item) => item !== value)
       : [...current, value];
     setFormData({ ...formData, role: updated });
+  };
+
+  const handlePracticeAreaSelection = (value: string) => {
+    const current = formData.practiceArea;
+    const updated = current.includes(value)
+      ? current.filter((item) => item !== value)
+      : [...current, value];
+    setFormData({ ...formData, practiceArea: updated });
   };
 
   return (
@@ -220,20 +228,57 @@ export default function AssessmentPage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="practiceArea">Practice Area</Label>
-                    <Select value={formData.practiceArea} onValueChange={(value) => setFormData({ ...formData, practiceArea: value })}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Choose your focus area" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="business">Business</SelectItem>
-                        <SelectItem value="civil">Civil</SelectItem>
-                        <SelectItem value="criminal">Criminal</SelectItem>
-                        <SelectItem value="general">General</SelectItem>
-                        <SelectItem value="immigration">Immigration</SelectItem>
-                        <SelectItem value="personal-injury">Personal Injury</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Label>Practice Area(s) (Select all that apply)</Label>
+                    <div className="space-y-3 mt-2">
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="business"
+                          checked={formData.practiceArea.includes("business")}
+                          onCheckedChange={() => handlePracticeAreaSelection("business")}
+                        />
+                        <Label htmlFor="business" className="font-normal cursor-pointer">⚖️ Business</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="civil"
+                          checked={formData.practiceArea.includes("civil")}
+                          onCheckedChange={() => handlePracticeAreaSelection("civil")}
+                        />
+                        <Label htmlFor="civil" className="font-normal cursor-pointer">📋 Civil</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="criminal"
+                          checked={formData.practiceArea.includes("criminal")}
+                          onCheckedChange={() => handlePracticeAreaSelection("criminal")}
+                        />
+                        <Label htmlFor="criminal" className="font-normal cursor-pointer">🔒 Criminal</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="general"
+                          checked={formData.practiceArea.includes("general")}
+                          onCheckedChange={() => handlePracticeAreaSelection("general")}
+                        />
+                        <Label htmlFor="general" className="font-normal cursor-pointer">⚡ General</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="immigration"
+                          checked={formData.practiceArea.includes("immigration")}
+                          onCheckedChange={() => handlePracticeAreaSelection("immigration")}
+                        />
+                        <Label htmlFor="immigration" className="font-normal cursor-pointer">🌍 Immigration</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="personal-injury"
+                          checked={formData.practiceArea.includes("personal-injury")}
+                          onCheckedChange={() => handlePracticeAreaSelection("personal-injury")}
+                        />
+                        <Label htmlFor="personal-injury" className="font-normal cursor-pointer">🏥 Personal Injury</Label>
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}
