@@ -8,8 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Scale, FileText, Handshake } from "lucide-react";
 
@@ -22,7 +22,7 @@ interface TaskSelection {
 
 interface AssessmentData {
   firmName: string;
-  role: string;
+  role: string[];
   practiceArea: string;
   taskSelection: TaskSelection;
   supportNeeded: string[];
@@ -38,7 +38,7 @@ export default function AssessmentPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<AssessmentData>({
     firmName: "",
-    role: "",
+    role: [],
     practiceArea: "",
     taskSelection: {
       administrative: [],
@@ -93,6 +93,14 @@ export default function AssessmentPage() {
         [category]: updated,
       },
     });
+  };
+
+  const handleRoleSelection = (value: string) => {
+    const current = formData.role;
+    const updated = current.includes(value)
+      ? current.filter((item) => item !== value)
+      : [...current, value];
+    setFormData({ ...formData, role: updated });
   };
 
   return (
@@ -150,37 +158,65 @@ export default function AssessmentPage() {
                   </div>
 
                   <div>
-                    <Label>Select Your Role</Label>
-                    <RadioGroup value={formData.role} onValueChange={(value) => setFormData({ ...formData, role: value })}>
+                    <Label>Select Your Role(s) (Select all that apply)</Label>
+                    <div className="space-y-3 mt-2">
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="attorney" id="attorney" />
-                        <Label htmlFor="attorney" className="font-normal">⚖️ Attorney / Partner</Label>
+                        <Checkbox
+                          id="attorney"
+                          checked={formData.role.includes("attorney")}
+                          onCheckedChange={() => handleRoleSelection("attorney")}
+                        />
+                        <Label htmlFor="attorney" className="font-normal cursor-pointer">⚖️ Attorney / Partner</Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="paralegal" id="paralegal" />
-                        <Label htmlFor="paralegal" className="font-normal">👩‍💼 Paralegal</Label>
+                        <Checkbox
+                          id="paralegal"
+                          checked={formData.role.includes("paralegal")}
+                          onCheckedChange={() => handleRoleSelection("paralegal")}
+                        />
+                        <Label htmlFor="paralegal" className="font-normal cursor-pointer">👩‍💼 Paralegal</Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="operations" id="operations" />
-                        <Label htmlFor="operations" className="font-normal">🧾 Operations Manager</Label>
+                        <Checkbox
+                          id="operations"
+                          checked={formData.role.includes("operations")}
+                          onCheckedChange={() => handleRoleSelection("operations")}
+                        />
+                        <Label htmlFor="operations" className="font-normal cursor-pointer">🧾 Operations Manager</Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="marketing" id="marketing" />
-                        <Label htmlFor="marketing" className="font-normal">📈 Marketing Lead</Label>
+                        <Checkbox
+                          id="marketing"
+                          checked={formData.role.includes("marketing")}
+                          onCheckedChange={() => handleRoleSelection("marketing")}
+                        />
+                        <Label htmlFor="marketing" className="font-normal cursor-pointer">📈 Marketing Lead</Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="finance" id="finance" />
-                        <Label htmlFor="finance" className="font-normal">💳 Finance Admin</Label>
+                        <Checkbox
+                          id="finance"
+                          checked={formData.role.includes("finance")}
+                          onCheckedChange={() => handleRoleSelection("finance")}
+                        />
+                        <Label htmlFor="finance" className="font-normal cursor-pointer">💳 Finance Admin</Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="solo" id="solo" />
-                        <Label htmlFor="solo" className="font-normal">👤 Solo Practitioner</Label>
+                        <Checkbox
+                          id="solo"
+                          checked={formData.role.includes("solo")}
+                          onCheckedChange={() => handleRoleSelection("solo")}
+                        />
+                        <Label htmlFor="solo" className="font-normal cursor-pointer">👤 Solo Practitioner</Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="consultant" id="consultant" />
-                        <Label htmlFor="consultant" className="font-normal">🌐 Consultant</Label>
+                        <Checkbox
+                          id="consultant"
+                          checked={formData.role.includes("consultant")}
+                          onCheckedChange={() => handleRoleSelection("consultant")}
+                        />
+                        <Label htmlFor="consultant" className="font-normal cursor-pointer">🌐 Consultant</Label>
                       </div>
-                    </RadioGroup>
+                    </div>
                   </div>
 
                   <div>
