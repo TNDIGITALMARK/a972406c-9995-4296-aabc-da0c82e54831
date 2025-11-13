@@ -472,7 +472,7 @@ export default function AssessmentPage() {
                         LEGAL
                       </h3>
                       <div className="space-y-3">
-                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["Draft Legal Documents"] || 0)`}>
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["Draft Legal Documents"] || 0)}`}>
                           <Label className="text-sm font-normal">Draft Legal Documents</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">197/year</p>
                           <Select
@@ -490,7 +490,7 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["File/E-File Court Cases"] || 0)`}>
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["File/E-File Court Cases"] || 0)}`}>
                           <Label className="text-sm font-normal">File/E-File Court Cases</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">127/year</p>
                           <Select
@@ -508,7 +508,7 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["Draft Cover Letters"] || 0)`}>
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["Draft Cover Letters"] || 0)}`}>
                           <Label className="text-sm font-normal">Draft Cover Letters</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">116/year</p>
                           <Select
@@ -526,7 +526,7 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["Draft Affidavits"] || 0)`}>
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["Draft Affidavits"] || 0)}`}>
                           <Label className="text-sm font-normal">Draft Affidavits</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">94/year</p>
                           <Select
@@ -544,7 +544,7 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["Draft Motions"] || 0)`}>
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["Draft Motions"] || 0)}`}>
                           <Label className="text-sm font-normal">Draft Motions</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">88/year</p>
                           <Select
@@ -593,7 +593,7 @@ export default function AssessmentPage() {
                         PEOPLE FACING
                       </h3>
                       <div className="space-y-3">
-                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Reception: Answer Inquires"] || 0)`}>
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Reception: Answer Inquires"] || 0)}`}>
                           <Label className="text-sm font-normal">Reception: Answer Inquires</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">318/year</p>
                           <Select
@@ -611,7 +611,7 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Request Documentation"] || 0)`}>
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Request Documentation"] || 0)}`}>
                           <Label className="text-sm font-normal">Request Documentation</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">309/year</p>
                           <Select
@@ -629,7 +629,7 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Confirm Appointments With Clients"] || 0)`}>
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Confirm Appointments With Clients"] || 0)}`}>
                           <Label className="text-sm font-normal">Confirm Appointments With Clients</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">246/year</p>
                           <Select
@@ -647,7 +647,7 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Intake: Qualify & Obtain Retainer"] || 0)`}>
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Intake: Qualify & Obtain Retainer"] || 0)}`}>
                           <Label className="text-sm font-normal">Intake: Qualify & Obtain Retainer</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">165/year</p>
                           <Select
@@ -665,7 +665,7 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Intake: Qualify & Schedule Leads"] || 0)`}>
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Intake: Qualify & Schedule Leads"] || 0)}`}>
                           <Label className="text-sm font-normal">Intake: Qualify & Schedule Leads</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">136/year</p>
                           <Select
@@ -714,7 +714,7 @@ export default function AssessmentPage() {
                         MARKETING
                       </h3>
                       <div className="space-y-3">
-                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Manage Social Media"] || 0)`}>
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Manage Social Media"] || 0)}`}>
                           <Label className="text-sm font-normal">Manage Social Media</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">71/year</p>
                           <Select
@@ -732,7 +732,7 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Create Graphic Material"] || 0)`}>
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Create Graphic Material"] || 0)}`}>
                           <Label className="text-sm font-normal">Create Graphic Material</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">51/year</p>
                           <Select
@@ -750,7 +750,7 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Keep Website Up To Date"] || 0)`}>
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Keep Website Up To Date"] || 0)}`}>
                           <Label className="text-sm font-normal">Keep Website Up To Date</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">43/year</p>
                           <Select
@@ -768,7 +768,7 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Reply to Messages On Social Media"] || 0)`}>
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Reply to Messages On Social Media"] || 0)}`}>
                           <Label className="text-sm font-normal">Reply to Messages On Social Media</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">43/year</p>
                           <Select
@@ -786,7 +786,7 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Create & Edit Simple Videos"] || 0)`}>
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Create & Edit Simple Videos"] || 0)}`}>
                           <Label className="text-sm font-normal">Create & Edit Simple Videos</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">37/year</p>
                           <Select
