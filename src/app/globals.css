@@ -1,59 +1,77 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* ============================================
+   LAWMATCH DESIGN SYSTEM
+   Pixel-perfect color system matching design reference
+   All colors in HSL for theme compatibility
+   ============================================ */
 
 :root {
-  /* Pure white background with crisp black text */
-  --background: 0 0% 100%;
-  --foreground: 0 0% 0%;
+  /* LawMatch Professional Navy Theme */
+  --background: 210 20% 98%;        /* Light gray background #F9FAFB */
+  --foreground: 215 25% 17%;        /* Dark text #1F2937 */
 
-  /* Clean white cards with black text */
-  --card: 0 0% 100%;
-  --card-foreground: 0 0% 0%;
+  /* Card System - Clean white cards */
+  --card: 0 0% 100%;                /* Pure white #FFFFFF */
+  --card-foreground: 215 25% 17%;   /* Dark text #1F2937 */
 
-  /* Popovers with white background */
+  /* Popover */
   --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 0%;
+  --popover-foreground: 215 25% 17%;
 
-  /* Primary: Black with white text */
-  --primary: 0 0% 0%;
-  --primary-foreground: 0 0% 100%;
+  /* Primary: Professional Navy Blue */
+  --primary: 210 52% 24%;           /* Navy #1E3A5F */
+  --primary-foreground: 0 0% 100%;  /* White text */
 
-  /* Secondary: Light gray background with black text */
-  --secondary: 0 0% 97%;
-  --secondary-foreground: 0 0% 0%;
+  /* Secondary: Accent Orange/Gold for CTAs */
+  --secondary: 38 92% 50%;          /* Orange #F59E0B */
+  --secondary-foreground: 0 0% 100%; /* White text */
 
-  /* Muted: Subtle gray with darker text */
-  --muted: 0 0% 96%;
-  --muted-foreground: 0 0% 40%;
+  /* Muted: Subtle gray backgrounds */
+  --muted: 210 20% 96%;             /* Light gray #F3F4F6 */
+  --muted-foreground: 215 14% 42%;  /* Muted text #6B7280 */
 
-  /* Accent: Light gray */
-  --accent: 0 0% 96%;
-  --accent-foreground: 0 0% 0%;
+  /* Accent: Same as secondary for consistency */
+  --accent: 38 92% 50%;             /* Orange #F59E0B */
+  --accent-foreground: 0 0% 100%;
 
-  /* Destructive: Clean red */
+  /* Success: Green for positive indicators */
+  --success: 158 64% 52%;           /* Green #10B981 */
+  --success-foreground: 0 0% 100%;
+
+  /* Destructive: Red for errors */
   --destructive: 0 70% 50%;
   --destructive-foreground: 0 0% 100%;
 
-  /* Borders: Subtle gray */
-  --border: 0 0% 90%;
-  --input: 0 0% 90%;
-  --ring: 0 0% 0%;
+  /* Borders: Subtle gray borders */
+  --border: 214 20% 90%;            /* #E5E7EB */
+  --input: 214 20% 83%;             /* #D1D5DB */
+  --ring: 38 92% 50%;               /* Orange focus ring */
 
-  /* Minimal rounded corners */
-  --radius: 0.375rem;
+  /* Border Radius - Modern rounded corners */
+  --radius: 0.5rem;                 /* 8px for cards */
 
-  /* Sidebar: Clean white with black text */
+  /* Sidebar */
   --sidebar-background: 0 0% 100%;
-  --sidebar-foreground: 0 0% 0%;
-  --sidebar-primary: 0 0% 0%;
+  --sidebar-foreground: 215 25% 17%;
+  --sidebar-primary: 210 52% 24%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 0 0% 96%;
-  --sidebar-accent-foreground: 0 0% 0%;
-  --sidebar-border: 0 0% 90%;
-  --sidebar-ring: 0 0% 0%;
+  --sidebar-accent: 210 20% 96%;
+  --sidebar-accent-foreground: 215 25% 17%;
+  --sidebar-border: 214 20% 90%;
+  --sidebar-ring: 38 92% 50%;
+
+  /* Custom LawMatch Colors */
+  --lawmatch-navy: 210 52% 24%;
+  --lawmatch-navy-dark: 210 56% 18%;
+  --lawmatch-orange: 38 92% 50%;
+  --lawmatch-orange-hover: 32 94% 43%;
+  --lawmatch-gray-50: 210 20% 98%;
+  --lawmatch-gray-100: 210 20% 96%;
+  --lawmatch-gray-200: 214 20% 90%;
+  --lawmatch-gray-500: 215 14% 42%;
+  --lawmatch-gray-800: 215 25% 17%;
 }
 
 .dark {
@@ -169,24 +187,102 @@ All colors MUST be HSL.
 }
 
 body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
+  font-size: 16px;
+  line-height: 1.5;
   font-feature-settings: "rlig" 1, "calt" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
-/* Minimal, clean typography */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
+/* Professional LawMatch Typography Scale */
+h1 {
+  font-size: 2.5rem;      /* 40px */
+  font-weight: 700;
+  line-height: 1.2;
   letter-spacing: -0.025em;
+  color: hsl(var(--foreground));
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 2rem;        /* 32px */
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.875rem;
+}
+
+h3 {
+  font-size: 1.5rem;      /* 24px */
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.75rem;
+}
+
+h4 {
+  font-size: 1.25rem;     /* 20px */
+  font-weight: 600;
+  line-height: 1.4;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.625rem;
+}
+
+h5 {
+  font-size: 1.125rem;    /* 18px */
+  font-weight: 600;
+  line-height: 1.5;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.5rem;
+}
+
+h6 {
+  font-size: 1rem;        /* 16px */
+  font-weight: 600;
+  line-height: 1.5;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
   color: hsl(var(--foreground));
 }
 
-/* Clean button styles */
+/* Links */
+a {
+  color: hsl(var(--primary));
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: hsl(var(--lawmatch-orange));
+}
+
+/* Button base styles */
 button {
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+/* Form elements */
+input, select, textarea {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Label styles */
+label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: hsl(var(--foreground));
 }
 
 /* Subtle shadows for depth */
