@@ -126,6 +126,26 @@ export default function AssessmentPage() {
     });
   };
 
+  // Helper function to determine the priority color for the select trigger
+  const getPriorityColor = (priority: number): string => {
+    switch (priority) {
+      case 1: return "bg-[#10B981] border-[#10B981] text-white hover:bg-[#059669]"; // Low - Green with white text
+      case 2: return "bg-[#FCD34D] border-[#FCD34D] text-gray-900 hover:bg-[#FBBF24]"; // Medium - Yellow with dark text
+      case 3: return "bg-[#DC2626] border-[#DC2626] text-white hover:bg-[#B91C1C]"; // High - Red with white text
+      default: return ""; // Not specified - default styling
+    }
+  };
+
+  // Helper function to determine container styling for the entire task item
+  const getContainerColor = (priority: number): string => {
+    switch (priority) {
+      case 1: return "bg-[#10B981]/10 border-[#1166D5] border-2"; // Low - Light green background + blue border
+      case 2: return "bg-[#FCD34D]/20 border-[#1166D5] border-2"; // Medium - Light yellow background + blue border
+      case 3: return "bg-[#DC2626]/10 border-[#1166D5] border-2"; // High - Light red background + blue border
+      default: return ""; // Not specified - no special styling
+    }
+  };
+
   const handleRoleSelection = (value: string) => {
     const current = formData.role;
     const updated = current.includes(value)
@@ -331,14 +351,14 @@ export default function AssessmentPage() {
                         ADMINISTRATIVE
                       </h3>
                       <div className="space-y-3">
-                        <div className="space-y-1">
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.administrative["Use CRM & CMS"] || 0)}`}>
                           <Label className="text-sm font-normal">Use CRM & CMS</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">330/year</p>
                           <Select
                             value={String(formData.taskSelection.administrative["Use CRM & CMS"] || 0)}
                             onValueChange={(value) => handleTaskSelection("administrative", "Use CRM & CMS", parseInt(value))}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getPriorityColor(formData.taskSelection.administrative["Use CRM & CMS"] || 0)}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -349,14 +369,14 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-1">
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.administrative["Organize & File Documents"] || 0)}`}>
                           <Label className="text-sm font-normal">Organize & File Documents</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">308/year</p>
                           <Select
                             value={String(formData.taskSelection.administrative["Organize & File Documents"] || 0)}
                             onValueChange={(value) => handleTaskSelection("administrative", "Organize & File Documents", parseInt(value))}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getPriorityColor(formData.taskSelection.administrative["Organize & File Documents"] || 0)}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -367,14 +387,14 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-1">
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.administrative["Manage Emails"] || 0)`}>
                           <Label className="text-sm font-normal">Manage Emails</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">298/year</p>
                           <Select
                             value={String(formData.taskSelection.administrative["Manage Emails"] || 0)}
                             onValueChange={(value) => handleTaskSelection("administrative", "Manage Emails", parseInt(value))}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getPriorityColor(formData.taskSelection.administrative["Manage Emails"] || 0)}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -385,14 +405,14 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-1">
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.administrative["Manage Simple Projects"] || 0)`}>
                           <Label className="text-sm font-normal">Manage Simple Projects</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">256/year</p>
                           <Select
                             value={String(formData.taskSelection.administrative["Manage Simple Projects"] || 0)}
                             onValueChange={(value) => handleTaskSelection("administrative", "Manage Simple Projects", parseInt(value))}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getPriorityColor(formData.taskSelection.administrative["Manage Simple Projects"] || 0)}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -403,14 +423,14 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-1">
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.administrative["Track & Update Cases"] || 0)`}>
                           <Label className="text-sm font-normal">Track & Update Cases</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">243/year</p>
                           <Select
                             value={String(formData.taskSelection.administrative["Track & Update Cases"] || 0)}
                             onValueChange={(value) => handleTaskSelection("administrative", "Track & Update Cases", parseInt(value))}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getPriorityColor(formData.taskSelection.administrative["Track & Update Cases"] || 0)}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -452,14 +472,14 @@ export default function AssessmentPage() {
                         LEGAL
                       </h3>
                       <div className="space-y-3">
-                        <div className="space-y-1">
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["Draft Legal Documents"] || 0)`}>
                           <Label className="text-sm font-normal">Draft Legal Documents</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">197/year</p>
                           <Select
                             value={String(formData.taskSelection.legal["Draft Legal Documents"] || 0)}
                             onValueChange={(value) => handleTaskSelection("legal", "Draft Legal Documents", parseInt(value))}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getPriorityColor(formData.taskSelection.legal["Draft Legal Documents"] || 0)}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -470,14 +490,14 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-1">
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["File/E-File Court Cases"] || 0)`}>
                           <Label className="text-sm font-normal">File/E-File Court Cases</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">127/year</p>
                           <Select
                             value={String(formData.taskSelection.legal["File/E-File Court Cases"] || 0)}
                             onValueChange={(value) => handleTaskSelection("legal", "File/E-File Court Cases", parseInt(value))}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getPriorityColor(formData.taskSelection.legal["File/E-File Court Cases"] || 0)}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -488,14 +508,14 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-1">
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["Draft Cover Letters"] || 0)`}>
                           <Label className="text-sm font-normal">Draft Cover Letters</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">116/year</p>
                           <Select
                             value={String(formData.taskSelection.legal["Draft Cover Letters"] || 0)}
                             onValueChange={(value) => handleTaskSelection("legal", "Draft Cover Letters", parseInt(value))}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getPriorityColor(formData.taskSelection.legal["Draft Cover Letters"] || 0)}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -506,14 +526,14 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-1">
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["Draft Affidavits"] || 0)`}>
                           <Label className="text-sm font-normal">Draft Affidavits</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">94/year</p>
                           <Select
                             value={String(formData.taskSelection.legal["Draft Affidavits"] || 0)}
                             onValueChange={(value) => handleTaskSelection("legal", "Draft Affidavits", parseInt(value))}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getPriorityColor(formData.taskSelection.legal["Draft Affidavits"] || 0)}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -524,14 +544,14 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-1">
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.legal["Draft Motions"] || 0)`}>
                           <Label className="text-sm font-normal">Draft Motions</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">88/year</p>
                           <Select
                             value={String(formData.taskSelection.legal["Draft Motions"] || 0)}
                             onValueChange={(value) => handleTaskSelection("legal", "Draft Motions", parseInt(value))}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getPriorityColor(formData.taskSelection.legal["Draft Motions"] || 0)}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -573,14 +593,14 @@ export default function AssessmentPage() {
                         PEOPLE FACING
                       </h3>
                       <div className="space-y-3">
-                        <div className="space-y-1">
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Reception: Answer Inquires"] || 0)`}>
                           <Label className="text-sm font-normal">Reception: Answer Inquires</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">318/year</p>
                           <Select
                             value={String(formData.taskSelection.peopleFacing["Reception: Answer Inquires"] || 0)}
                             onValueChange={(value) => handleTaskSelection("peopleFacing", "Reception: Answer Inquires", parseInt(value))}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getPriorityColor(formData.taskSelection.peopleFacing["Reception: Answer Inquires"] || 0)}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -591,14 +611,14 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-1">
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Request Documentation"] || 0)`}>
                           <Label className="text-sm font-normal">Request Documentation</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">309/year</p>
                           <Select
                             value={String(formData.taskSelection.peopleFacing["Request Documentation"] || 0)}
                             onValueChange={(value) => handleTaskSelection("peopleFacing", "Request Documentation", parseInt(value))}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getPriorityColor(formData.taskSelection.peopleFacing["Request Documentation"] || 0)}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -609,14 +629,14 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-1">
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Confirm Appointments With Clients"] || 0)`}>
                           <Label className="text-sm font-normal">Confirm Appointments With Clients</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">246/year</p>
                           <Select
                             value={String(formData.taskSelection.peopleFacing["Confirm Appointments With Clients"] || 0)}
                             onValueChange={(value) => handleTaskSelection("peopleFacing", "Confirm Appointments With Clients", parseInt(value))}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getPriorityColor(formData.taskSelection.peopleFacing["Confirm Appointments With Clients"] || 0)}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -627,14 +647,14 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-1">
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Intake: Qualify & Obtain Retainer"] || 0)`}>
                           <Label className="text-sm font-normal">Intake: Qualify & Obtain Retainer</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">165/year</p>
                           <Select
                             value={String(formData.taskSelection.peopleFacing["Intake: Qualify & Obtain Retainer"] || 0)}
                             onValueChange={(value) => handleTaskSelection("peopleFacing", "Intake: Qualify & Obtain Retainer", parseInt(value))}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getPriorityColor(formData.taskSelection.peopleFacing["Intake: Qualify & Obtain Retainer"] || 0)}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -645,14 +665,14 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-1">
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.peopleFacing["Intake: Qualify & Schedule Leads"] || 0)`}>
                           <Label className="text-sm font-normal">Intake: Qualify & Schedule Leads</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">136/year</p>
                           <Select
                             value={String(formData.taskSelection.peopleFacing["Intake: Qualify & Schedule Leads"] || 0)}
                             onValueChange={(value) => handleTaskSelection("peopleFacing", "Intake: Qualify & Schedule Leads", parseInt(value))}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getPriorityColor(formData.taskSelection.peopleFacing["Intake: Qualify & Schedule Leads"] || 0)}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -694,14 +714,14 @@ export default function AssessmentPage() {
                         MARKETING
                       </h3>
                       <div className="space-y-3">
-                        <div className="space-y-1">
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Manage Social Media"] || 0)`}>
                           <Label className="text-sm font-normal">Manage Social Media</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">71/year</p>
                           <Select
                             value={String(formData.taskSelection.marketing["Manage Social Media"] || 0)}
                             onValueChange={(value) => handleTaskSelection("marketing", "Manage Social Media", parseInt(value))}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getPriorityColor(formData.taskSelection.marketing["Manage Social Media"] || 0)}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -712,14 +732,14 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-1">
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Create Graphic Material"] || 0)`}>
                           <Label className="text-sm font-normal">Create Graphic Material</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">51/year</p>
                           <Select
                             value={String(formData.taskSelection.marketing["Create Graphic Material"] || 0)}
                             onValueChange={(value) => handleTaskSelection("marketing", "Create Graphic Material", parseInt(value))}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getPriorityColor(formData.taskSelection.marketing["Create Graphic Material"] || 0)}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -730,14 +750,14 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-1">
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Keep Website Up To Date"] || 0)`}>
                           <Label className="text-sm font-normal">Keep Website Up To Date</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">43/year</p>
                           <Select
                             value={String(formData.taskSelection.marketing["Keep Website Up To Date"] || 0)}
                             onValueChange={(value) => handleTaskSelection("marketing", "Keep Website Up To Date", parseInt(value))}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getPriorityColor(formData.taskSelection.marketing["Keep Website Up To Date"] || 0)}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -748,14 +768,14 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-1">
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Reply to Messages On Social Media"] || 0)`}>
                           <Label className="text-sm font-normal">Reply to Messages On Social Media</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">43/year</p>
                           <Select
                             value={String(formData.taskSelection.marketing["Reply to Messages On Social Media"] || 0)}
                             onValueChange={(value) => handleTaskSelection("marketing", "Reply to Messages On Social Media", parseInt(value))}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getPriorityColor(formData.taskSelection.marketing["Reply to Messages On Social Media"] || 0)}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -766,14 +786,14 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-1">
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.marketing["Create & Edit Simple Videos"] || 0)`}>
                           <Label className="text-sm font-normal">Create & Edit Simple Videos</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">37/year</p>
                           <Select
                             value={String(formData.taskSelection.marketing["Create & Edit Simple Videos"] || 0)}
                             onValueChange={(value) => handleTaskSelection("marketing", "Create & Edit Simple Videos", parseInt(value))}
                           >
-                            <SelectTrigger className="h-9">
+                            <SelectTrigger className={`h-9 ${getPriorityColor(formData.taskSelection.marketing["Create & Edit Simple Videos"] || 0)}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>

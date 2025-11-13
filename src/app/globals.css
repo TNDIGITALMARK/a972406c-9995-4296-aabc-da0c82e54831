@@ -82,6 +82,13 @@
   /* Brand Color System - LawWork Branding */
   --brand-law-blue: 210 85% 45%;      /* "Law" text color - Blue */
   --brand-work-orange: 12 85% 65%;    /* "Work" text color - Orange/Coral */
+
+  /* Priority Color System for Task Assessment */
+  --priority-low: 158 64% 52%;        /* Green #10B981 */
+  --priority-medium: 45 93% 63%;      /* Light Yellow #FCD34D */
+  --priority-high: 0 70% 50%;         /* Red #DC2626 */
+  --priority-selected: 210 85% 45%;   /* Blue - for other selected items */
+  --priority-not-specified: 214 30% 88%; /* Light gray - default border */
 }
 
 .dark {
