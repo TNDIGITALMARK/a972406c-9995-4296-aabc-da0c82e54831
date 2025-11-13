@@ -387,7 +387,7 @@ export default function AssessmentPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.administrative["Manage Emails"] || 0)`}>
+                        <div className={`space-y-1 p-3 rounded-lg transition-all ${getContainerColor(formData.taskSelection.administrative["Manage Emails"] || 0)}`}>
                           <Label className="text-sm font-normal">Manage Emails</Label>
                           <p className="text-xs text-[hsl(var(--muted-foreground))]">298/year</p>
                           <Select
