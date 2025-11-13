@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 export function Header() {
@@ -9,8 +10,15 @@ export function Header() {
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="text-xl font-bold">⚖️ LawWork</div>
+          <Link href="/" className="flex items-center space-x-3">
+            <Image
+              src="/stafi-logo.jpeg"
+              alt="Stafi Logo"
+              width={40}
+              height={40}
+              className="rounded-md"
+            />
+            <div className="text-xl font-bold">LawWork</div>
           </Link>
 
           {/* Navigation */}

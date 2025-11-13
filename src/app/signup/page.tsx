@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useAuth } from '@/lib/zylo/hooks';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -73,6 +74,15 @@ export default function SignupPage() {
     <div className="flex items-center justify-center min-h-screen bg-background py-12 px-4">
       <Card className="w-full max-w-md border-border shadow-sm">
         <CardHeader className="space-y-2">
+          <div className="flex justify-center mb-4">
+            <Image
+              src="/stafi-logo.jpeg"
+              alt="Stafi Logo"
+              width={60}
+              height={60}
+              className="rounded-lg"
+            />
+          </div>
           <CardTitle className="text-3xl font-semibold text-center tracking-tight">
             Create Account
           </CardTitle>
