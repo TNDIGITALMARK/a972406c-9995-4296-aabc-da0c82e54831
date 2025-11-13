@@ -136,9 +136,10 @@ export default function AssessmentPage() {
     }
   };
 
-  // Helper function to determine styling for "Other" select when a value is chosen
+  // Helper function to determine styling for "Other" select - ALWAYS light blue
   const getOtherSelectColor = (value: string): string => {
-    return value ? "bg-[#1166D5] border-[#1166D5] text-white hover:bg-[#0d52ab]" : "";
+    // Always return light blue styling regardless of selection state
+    return "bg-[#1166D5] border-[#1166D5] text-white hover:bg-[#0d52ab]";
   };
 
   // Helper function to determine container styling for the entire task item
