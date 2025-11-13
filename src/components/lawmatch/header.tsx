@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { BrandName } from "@/components/brand/brand-name";
 
 export function Header() {
   return (
@@ -18,7 +19,7 @@ export function Header() {
               height={60}
               className="rounded-md"
             />
-            <div className="text-xl font-bold">LawWork</div>
+            <BrandName className="text-xl" />
           </Link>
 
           {/* Navigation */}

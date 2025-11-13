@@ -5,6 +5,7 @@ import { Header } from "@/components/lawmatch/header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Scale, FileText, Handshake, ArrowRight } from "lucide-react";
+import { BrandName } from "@/components/brand/brand-name";
 
 export default function HomePage() {
   const router = useRouter();
@@ -131,7 +132,7 @@ export default function HomePage() {
           {/* Why Choose Section */}
           <div className="mt-24">
             <h2 className="text-3xl font-bold text-center text-white mb-12">
-              Why Choose LawWork?
+              Why Choose <BrandName className="text-3xl" />?
             </h2>
             <div className="grid md:grid-cols-3 gap-8">
               <Card className="shadow-xl">
@@ -185,7 +186,7 @@ export default function HomePage() {
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <p className="text-sm">© 2025 LawWork. All rights reserved.</p>
+              <p className="text-sm">© 2025 <BrandName className="text-sm" />. All rights reserved.</p>
             </div>
             <div className="flex space-x-6 text-sm">
               <a href="#" className="hover:text-[hsl(var(--secondary))] transition-colors">

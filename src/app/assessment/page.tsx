@@ -12,6 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Scale, FileText, Handshake } from "lucide-react";
+import { BrandName } from "@/components/brand/brand-name";
 
 interface TaskSelection {
   administrative: { [key: string]: number };
@@ -1156,7 +1157,7 @@ export default function AssessmentPage() {
           {/* Why Choose LawWork Section */}
           <div className="mt-16 mb-8">
             <h2 className="text-2xl font-bold text-center text-[hsl(var(--primary))] mb-8">
-              Why Choose LawWork?
+              Why Choose <BrandName className="text-2xl" />?
             </h2>
             <div className="grid md:grid-cols-3 gap-6">
               <Card className="text-center">
