@@ -24,7 +24,7 @@ export function BrandName({
   workText = "Work"
 }: BrandNameProps) {
   return (
-    <span className={`brand-name ${className}`}>
+    <span className={`brand-name font-bold ${className}`}>
       <span className="brand-law">{lawText}</span>
       <span className="brand-work">{workText}</span>
     </span>

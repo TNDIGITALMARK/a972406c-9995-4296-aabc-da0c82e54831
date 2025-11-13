@@ -7,11 +7,11 @@ import { BrandName } from "@/components/brand/brand-name";
 
 export function Header() {
   return (
-    <header className="bg-[hsl(var(--primary))] text-white">
+    <header className="sticky top-0 z-50 bg-[hsl(var(--primary))] text-white shadow-md">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
+          <Link href="/" className="flex items-center space-x-3 hover:opacity-90 transition-opacity">
             <Image
               src="/stafi-logo.jpeg"
               alt="Stafi Logo"
@@ -19,7 +19,7 @@ export function Header() {
               height={60}
               className="rounded-md"
             />
-            <BrandName className="text-xl" />
+            <BrandName className="text-2xl" />
           </Link>
 
           {/* Navigation */}
