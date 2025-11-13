@@ -40,8 +40,7 @@ export default function HomePage() {
                 </Button>
                 <Button
                   size="lg"
-                  variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-[hsl(var(--primary))] text-lg px-8"
+                  className="bg-[#60A5FA] hover:bg-[#2563EB] text-white text-lg px-8 border-0"
                 >
                   Learn More
                 </Button>

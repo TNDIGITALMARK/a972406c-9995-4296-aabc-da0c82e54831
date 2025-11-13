@@ -14,8 +14,8 @@ export function Header() {
             <Image
               src="/stafi-logo.jpeg"
               alt="Stafi Logo"
-              width={40}
-              height={40}
+              width={60}
+              height={60}
               className="rounded-md"
             />
             <div className="text-xl font-bold">LawWork</div>
